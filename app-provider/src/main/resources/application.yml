@@ -1,0 +1,12 @@
+dubbo :
+  protocol :
+    prot : 20880
+    name  : dubbo
+  application :
+    name : app-provider
+    owner: konghang
+    organization: KH
+    version: 1.0.0
+  registry :
+    address : zookeeper://127.0.0.1:2181
+    protocol: zookeeper
