@@ -38,8 +38,9 @@ public class ShiroFilterChainManager {
         List<String> defaultAnon = Arrays.asList("/css/**","/js/**");
         defaultAnon.forEach(ignored -> filterChain.put(ignored,"anon"));
         // -------------dynamic 动态URL
-        // TODO: 2018/8/9  rolePermRules动态去数据库加载
         List<RolePermRule> rolePermRules = new ArrayList<>();
+        // TODO: 2018/8/9  rolePermRules动态去数据库加载
+        wrap(rolePermRules);
         if (null != rolePermRules) {
             rolePermRules.forEach(rule -> {
                 StringBuilder Chain = rule.toFilterChain();
@@ -48,7 +49,21 @@ public class ShiroFilterChainManager {
                 }
             });
         }
+        // -------------jwt jwt相关,无角色需求
+        List<String> defaultJwt = Arrays.asList("/**");
+        defaultJwt.forEach(jwt -> filterChain.put(jwt, "jwt"));
         return filterChain;
+    }
+
+    private void wrap(List<RolePermRule> rolePermRules){
+        RolePermRule rolePermRule = new RolePermRule();
+        rolePermRule.setUrl("/api/user/login");
+        rolePermRule.setNeedRoles("role_anon");
+        rolePermRules.add(rolePermRule);
+        RolePermRule rule = new RolePermRule();
+        rule.setUrl("/index--POST");
+        rule.setNeedRoles("role_anon");
+        rolePermRules.add(rule);
     }
 
     /**

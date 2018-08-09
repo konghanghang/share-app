@@ -6,7 +6,7 @@ import com.ysla.api.common.JsonApi;
 import com.ysla.web.config.shiro.JwtStatelessToken;
 import com.ysla.web.config.shiro.JwtUtil;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 
 import javax.servlet.ServletRequest;
@@ -18,10 +18,25 @@ import javax.servlet.http.HttpServletResponse;
  * jwt无状态过滤器
  * @author konghang
  */
-public class JwtStatelessFilter extends BasicHttpAuthenticationFilter {
+public class JwtStatelessFilter extends RestPathMatchingFilter {
 
     private final String OPTIONS = "options";
     private final String NULL = "null";
+    private final String AUTHORIZATION = "Authorization";
+
+    /**
+     * isAccessAllowed 和下边的 onAccessDenied 在 RestPathMatchingFilter 中的 onPreHandle 方法中被调用
+     * @param request
+     * @param response
+     * @param mappedValue
+     * @return
+     * @throws Exception
+     */
+    @Override
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
+        Subject subject = getSubject(request,response);
+        return subject.isAuthenticated();
+    }
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
@@ -31,14 +46,15 @@ public class JwtStatelessFilter extends BasicHttpAuthenticationFilter {
         if(OPTIONS.equalsIgnoreCase(method)){
             return true;
         }
+        Subject subject = getSubject(request,response);
         // 获取Authorization字段
-        String authorization = httpRequest.getHeader(AUTHORIZATION_HEADER);
+        String authorization = httpRequest.getHeader(AUTHORIZATION);
         if (authorization!=null && !NULL.equalsIgnoreCase(authorization)) {
             try {
                 // 提交给realm进行登入，如果错误他会抛出异常并被捕获
                 String username = JwtUtil.getUsername(authorization);
                 JwtStatelessToken token = new JwtStatelessToken(username,authorization);
-                getSubject(request, response).login(token);
+                subject.login(token);
                 return true;
             } catch(UnknownAccountException uae){
                 authorizationFail(response, ErrorCode.USER_UNKNOWN_ACCOUNT);

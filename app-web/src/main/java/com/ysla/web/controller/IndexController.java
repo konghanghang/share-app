@@ -17,10 +17,10 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(value = "/index1", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.POST)
     @ResponseBody
     public String index1(){
-        return "index1";
+        return "index-post";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

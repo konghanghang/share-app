@@ -2,6 +2,7 @@ package com.ysla.api.shiro;
 
 import com.ysla.utils.string.StringUtils;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -16,11 +17,13 @@ public class RolePermRule {
     /**
      * 资源URL
      */
-    @Getter private String url;
+    @Getter @Setter
+    private String url;
     /**
      * 访问资源所需要的角色列表，多个列表用逗号间隔
      */
-    @Getter private String needRoles;
+    @Getter @Setter
+    private String needRoles;
 
     /**
      * 将url needRoles 转化成shiro可识别的过滤器链：url=jwt[角色1、角色2、角色n]
