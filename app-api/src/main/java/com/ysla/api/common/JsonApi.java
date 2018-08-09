@@ -7,35 +7,52 @@ import lombok.Setter;
  * 统一返回实体
  * @author konghang
  */
-public class JsonApi {
+public class JsonApi<T> {
 
-    @Setter @Getter private int status;
+    private static final int OK = 1;
+    private static final int FAIL = 0;
 
-    @Setter @Getter private String message;
+    @Setter@Getter private int code = OK;
+    @Setter@Getter private T data;
+    @Setter@Getter private String message = "请求成功！";
 
-    @Setter @Getter private Object data;
+    public JsonApi() {}
 
-    public JsonApi() {
-        status = 0;
-        message = "请求成功";
+    public static JsonApi isOk(){
+        return new JsonApi();
     }
 
-    public JsonApi(int status, String message) {
-        this.status = status;
-        this.message = message;
+    public static JsonApi isFail(){
+        return new JsonApi().code(FAIL);
     }
 
-    public JsonApi(Object data) {
-        this();
-        this.data = data;
+    public static JsonApi isFail(Throwable e){
+        return isFail().message(e);
     }
 
-    public JsonApi(int status, String message, Object data) {
-        this(status,message);
-        this.data = data;
+    public static JsonApi isFail(ErrorCode errorCode){
+        return new JsonApi()
+                .code(errorCode.getErrorID())
+                .message(errorCode.getErrorMsg());
     }
 
-    public JsonApi(ErrorCode code) {
-        this(code.getErrorID(),code.getErrorMsg());
+    public JsonApi code(int code){
+        this.setCode(code);
+        return this;
+    }
+
+    public JsonApi message(Throwable e){
+        this.setMessage(e.getMessage());
+        return this;
+    }
+
+    public JsonApi message(String message){
+        this.setMessage(message);
+        return this;
+    }
+
+    public JsonApi data(T data){
+        this.setData(data);
+        return this;
     }
 }

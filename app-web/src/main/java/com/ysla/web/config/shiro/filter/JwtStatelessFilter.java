@@ -97,6 +97,6 @@ public class JwtStatelessFilter extends RestPathMatchingFilter {
         servletResponse.setContentType("application/json;charset=UTF-8");
         servletResponse.setHeader("Access-Control-Allow-Origin","*");
         ObjectMapper objectMapper = new ObjectMapper();
-        response.getWriter().write(objectMapper.writeValueAsString(new JsonApi(errorCode)));
+        response.getWriter().write(objectMapper.writeValueAsString(JsonApi.isFail(errorCode)));
     }
 }
