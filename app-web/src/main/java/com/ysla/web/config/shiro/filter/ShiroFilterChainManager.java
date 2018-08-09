@@ -55,18 +55,18 @@ public class ShiroFilterChainManager {
      * 动态重新加载过滤链规则
      */
     public void reloadFilterChain() {
-            ShiroFilterFactoryBean shiroFilterFactoryBean = SpringContextHolder.getBean(ShiroFilterFactoryBean.class);
-            AbstractShiroFilter abstractShiroFilter = null;
-            try {
-                abstractShiroFilter = (AbstractShiroFilter)shiroFilterFactoryBean.getObject();
-                RestPathMatchingFilterChainResolver filterChainResolver = (RestPathMatchingFilterChainResolver)abstractShiroFilter.getFilterChainResolver();
-                DefaultFilterChainManager filterChainManager = (DefaultFilterChainManager)filterChainResolver.getFilterChainManager();
-                filterChainManager.getFilterChains().clear();
-                shiroFilterFactoryBean.getFilterChainDefinitionMap().clear();
-                shiroFilterFactoryBean.setFilterChainDefinitionMap(this.initFilterChain());
-                shiroFilterFactoryBean.getFilterChainDefinitionMap().forEach((k,v) -> filterChainManager.createChain(k,v));
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+        ShiroFilterFactoryBean shiroFilterFactoryBean = SpringContextHolder.getBean(ShiroFilterFactoryBean.class);
+        AbstractShiroFilter abstractShiroFilter = null;
+        try {
+            abstractShiroFilter = (AbstractShiroFilter)shiroFilterFactoryBean.getObject();
+            RestPathMatchingFilterChainResolver filterChainResolver = (RestPathMatchingFilterChainResolver)abstractShiroFilter.getFilterChainResolver();
+            DefaultFilterChainManager filterChainManager = (DefaultFilterChainManager)filterChainResolver.getFilterChainManager();
+            filterChainManager.getFilterChains().clear();
+            shiroFilterFactoryBean.getFilterChainDefinitionMap().clear();
+            shiroFilterFactoryBean.setFilterChainDefinitionMap(this.initFilterChain());
+            shiroFilterFactoryBean.getFilterChainDefinitionMap().forEach((k,v) -> filterChainManager.createChain(k,v));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

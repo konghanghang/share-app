@@ -22,9 +22,13 @@ public class RolePermRule {
      */
     @Getter private String needRoles;
 
+    /**
+     * 将url needRoles 转化成shiro可识别的过滤器链：url=jwt[角色1、角色2、角色n]
+     * @return
+     */
     public StringBuilder toFilterChain() {
 
-        if (null == this.url || this.url.isEmpty()){
+        if (StringUtils.isEmpty(url)){
             return null;
         }
         StringBuilder stringBuilder = new StringBuilder();
