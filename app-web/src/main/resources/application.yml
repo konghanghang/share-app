@@ -1,3 +1,16 @@
 server:
   #定义启动访问端口号
   port: 8080
+
+com:
+  ysla:
+    #swagger属性配置
+    swagger:
+      basePackage: com.ysla.web.controller
+      title: 使用Swagger2构建RESTful APIs
+      description: 更多文章请关注：http://me.ml520.top
+      termsOfServiceUrl: http://me.ml520.top
+      contactName: KongHang
+      contactUrl: ${com.ysla.swagger.termsOfServiceUrl}
+      contactMail: kong.hh@live.com
+      version: 1.0.0
