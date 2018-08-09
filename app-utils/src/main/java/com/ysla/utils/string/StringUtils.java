@@ -1,6 +1,7 @@
 package com.ysla.utils.string;
 
 
+import com.sun.istack.internal.Nullable;
 import com.ysla.utils.date.DateUtils;
 
 import java.text.SimpleDateFormat;
@@ -9,6 +10,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * @author konghang
+ */
 public class StringUtils {
 
     //顺序号产生器(当前设计按每秒1000单不重设计)
@@ -125,9 +129,13 @@ public class StringUtils {
         return UUID.replaceAll("-", "");
     }
 
-    public static void main(String[] args) {
-        List<String> list = StringUtils.tokenizer("a,b,c,d");
-        System.out.println(list);
+    /**
+     * 非空判断
+     * @param str
+     * @return
+     */
+    public static boolean isEmpty(@Nullable Object str) {
+        return (str == null || "".equals(str));
     }
 
 }
