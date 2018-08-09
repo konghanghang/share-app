@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ysla</groupId>
-    <artifactId>share-app</artifactId>
+    <artifactId>springboot-dubbo-shiro</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
-    <name>share-app</name>
+    <name>springboot-dubbo-shiro</name>
     <modules>
         <module>app-api</module>
         <module>app-provider</module>

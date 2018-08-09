@@ -1,7 +1,6 @@
 package com.ysla.utils.string;
 
 
-import com.sun.istack.internal.Nullable;
 import com.ysla.utils.date.DateUtils;
 
 import java.text.SimpleDateFormat;
@@ -134,7 +133,7 @@ public class StringUtils {
      * @param str
      * @return
      */
-    public static boolean isEmpty(@Nullable Object str) {
+    public static boolean isEmpty(Object str) {
         return (str == null || "".equals(str));
     }
 
