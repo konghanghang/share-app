@@ -35,7 +35,7 @@ public class ShiroFilterChainManager {
     public Map<String,String> initFilterChain() {
         Map<String,String> filterChain = new LinkedHashMap<>();
         // -------------anon 默认过滤器忽略的URL
-        List<String> defaultAnon = Arrays.asList("/css/**","/js/**");
+        List<String> defaultAnon = Arrays.asList("/css/**","/js/**","/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/api-docs");
         defaultAnon.forEach(ignored -> filterChain.put(ignored,"anon"));
         // -------------dynamic 动态URL
         List<RolePermRule> rolePermRules = new ArrayList<>();

@@ -9,19 +9,32 @@ spring:
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    filters: stat
-    maxActive: 20
+    platform: mysql
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    # druid 配置: https://github.com/alibaba/druid/wiki/
     initialSize: 1
-    maxWait: 60000
     minIdle: 1
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
     timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
     minEvictableIdleTimeMillis: 300000
     validationQuery: select 'x'
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
+    # 配置监控统计拦截的filters，stat用于监控界面，'wall'用于防火墙防御sql注入, slf4j用于druid记录sql日志
+    filters: stat,wall
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: false
 # dubbo
 dubbo :
   application :
@@ -44,6 +57,14 @@ management:
 #pagehelper分页插件
 pagehelper:
   helperDialect: mysql
+  # 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页
   reasonable: true
+  # 支持通过Mapper接口参数来传递分页参数
   supportMethodsArguments: true
   params: count=countSql
+mybatis:
+  configuration:
+    # 开启驼峰命名转换 Table(create_time) -> Entity(createTime)
+    map-underscore-to-camel-case: true
+    # 使用JDBC的getGeneratedKeys获取数据库自增主键值
+    useGeneratedKeys: true

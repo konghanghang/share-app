@@ -1,6 +1,7 @@
 package com.ysla.web.config;
 
-import com.ysla.web.properties.SwaggerInfo;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,8 +13,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import javax.annotation.Resource;
-
 /**
  * swagger配置
  * url: /swagger-ui.html
@@ -21,10 +20,25 @@ import javax.annotation.Resource;
  */
 @Configuration
 @EnableSwagger2
+@ConfigurationProperties(prefix = "com.ysla.swagger")
+@Data
 public class SwaggerConfig {
 
-    @Resource
-    SwaggerInfo swagger;
+    private String basePackage;
+
+    private String title;
+
+    private String description;
+
+    private String termsOfServiceUrl;
+
+    private String contactName;
+
+    private String contactUrl;
+
+    private String contactMail;
+
+    private String version;
 
     @Bean
     public Docket buildDocket(){
@@ -32,18 +46,18 @@ public class SwaggerConfig {
                 .apiInfo(buildApiInf())
                 .select()
                 //controller路径
-                .apis(RequestHandlerSelectors.basePackage(swagger.getBasePackage()))
+                .apis(RequestHandlerSelectors.basePackage(this.basePackage))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo buildApiInf(){
         return new ApiInfoBuilder()
-                .title(swagger.getTitle())
-                .description(swagger.getDescription())
-                .termsOfServiceUrl(swagger.getTermsOfServiceUrl())
-                .contact(new Contact(swagger.getContactName(), swagger.getContactUrl(), swagger.getContactMail()))
-                .version(swagger.getVersion())
+                .title(this.title)
+                .description(this.description)
+                .termsOfServiceUrl(this.termsOfServiceUrl)
+                .contact(new Contact(this.contactName, this.contactUrl, this.contactMail))
+                .version(this.version)
                 .build();
 
     }

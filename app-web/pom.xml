@@ -31,7 +31,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--解决properties@ConfigurationProperties(prefix = "com.iminling.blog")
+        <!--解决properties@ConfigurationProperties(prefix = "com.ysla.blog")
             出现 spring boot Configuration Annotation Proessor not found in classpath-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
