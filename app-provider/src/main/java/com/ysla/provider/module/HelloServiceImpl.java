@@ -1,4 +1,4 @@
-package com.ysla.provider;
+package com.ysla.provider.module;
 
 
 import com.alibaba.dubbo.config.annotation.Service;

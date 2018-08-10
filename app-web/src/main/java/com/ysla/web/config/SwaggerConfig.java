@@ -1,6 +1,6 @@
 package com.ysla.web.config;
 
-import com.ysla.api.properties.SwaggerInfo;
+import com.ysla.web.properties.SwaggerInfo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

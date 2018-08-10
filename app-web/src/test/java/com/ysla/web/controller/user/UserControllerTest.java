@@ -1,6 +1,7 @@
 package com.ysla.web.controller.user;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,6 +36,7 @@ public class UserControllerTest {
      * andReturn：最后返回相应的MvcResult；然后进行自定义验证/进行下一步的异步处理（对返回的数据进行的判断）
      * @throws Exception
      */
+    @Ignore
     @Test
     public void login() throws Exception {
         RequestBuilder request = post("/api/user/login")

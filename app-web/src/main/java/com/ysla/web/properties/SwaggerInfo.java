@@ -1,4 +1,4 @@
-package com.ysla.api.properties;
+package com.ysla.web.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
