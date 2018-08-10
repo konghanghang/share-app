@@ -4,7 +4,7 @@ import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.ysla.api.common.ErrorCode;
+import com.ysla.api.model.common.ErrorCode;
 import com.ysla.web.config.shiro.JwtStatelessToken;
 import com.ysla.web.config.shiro.JwtUtil;
 import org.apache.shiro.authc.*;

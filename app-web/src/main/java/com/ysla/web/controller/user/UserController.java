@@ -1,6 +1,5 @@
 package com.ysla.web.controller.user;
-
-import com.ysla.api.common.JsonApi;
+import com.ysla.api.model.common.JsonApi;
 import com.ysla.web.config.shiro.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;

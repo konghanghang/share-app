@@ -1,43 +1,49 @@
 spring:
   application:
     name: app-provider
+  datasource:
+    name: dev
+    url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false
+    username: root
+    password: 2222
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
 # dubbo
 dubbo :
   application :
     id: app-provider
     name: app-provider
-    owner: konghang
     qos-enable: false
     qos-port: 22222
-    version: 1.0.0
   protocol:
-    prot: 20880
-    name: dubbo
-    id: dubbo
     status: server
   registry:
-    address: zookeeper://127.0.0.1:2181
     id: app-provider
   scan:
     basePackages: com.ysla.provider.module
 management:
-  # Enables Dubbo All Endpoints
-  endpoint:
-    dubbo:
-      enabled: true
-      dubbo-shutdown:
-        enabled: true
-      dubbo-configs:
-        enabled: true
-      dubbo-services:
-        enabled: true
-      dubbo-references:
-        enabled: true
-      dubbo-properties:
-        enabled: true
   # Dubbo Health
   health:
     dubbo:
       status:
-        defaults: memory
         extras: load,threadpool
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

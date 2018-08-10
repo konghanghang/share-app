@@ -1,5 +1,6 @@
 package com.ysla.provider;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +13,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @author konghang
  */
 @SpringBootApplication
+@MapperScan(value = {"com.ysla.provider.module"})
 public class ProviderApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ProviderApplication.class);

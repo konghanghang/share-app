@@ -1,4 +1,4 @@
-package com.ysla.api.shiro;
+package com.ysla.api.model.shiro;
 
 import com.ysla.utils.string.StringUtils;
 import lombok.Getter;

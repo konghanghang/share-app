@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!--导入属性配置-->
+    <!--<properties resource="application.properties"></properties>-->
+
+    <!-- 数据库驱动-->
+    <context id="MysqlTables" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- 抑制警告 -->
+        <property name="suppressTypeWarnings" value="true" />
+        <!--避免生成重复代码的插件-->
+        <!--<plugin type="com.ysla.m.plugin.OverIsMergeablePlugin"/>-->
+        <!-- generate entity时，生成hashcode和equals方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <!-- generate entity时，生成serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!-- 这个插件只会增加字符串字段映射到一个JDBC字符的方法 -->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+        <!-- generate entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/test?useSSL=false"
+                        userId="root" password="2222"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置(实体类)-->
+        <javaModelGenerator targetPackage="com.ysla.api.auto.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="com.ysla.api.auto.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成xml映射文件存放位置-->
+        <!--<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>-->
+        <!-- 生成DAO的包名和位置  type="ANNOTATEDMAPPER" type="XMLMAPPER" -->
+        <javaClientGenerator type="ANNOTATEDMAPPER"
+                             targetPackage="com.ysla.api.auto.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!--
+        如果要直接指定全部表，可以用
+        <table tableName="%"></table>
+        的方式，会默认将数据表中的"_"去掉并以驼峰的形式生成实体类名
+         -->
+        <!-- 有些表的字段需要指定java类型
+         <table schema="" tableName="">
+            <columnOverride column="" javaType="" />
+        </table> -->
+        <!--
+        enableInsert：是否生成插入语句。默认是true
+        enableSelectByPrimaryKey：是否通过主键生成选择语句。不管是否有这种设置,如果该表没有一个主键将不会生成。
+        enableUpdateByPrimaryKey：是否通过主键生成更新语句。如果该表没有主键，不管是否设置该属性,语句将不会生成。
+        enableDeleteByPrimaryKey：是否通过主键生成删除语句。如果该表没有主键，不管这种设置该属性,语句将不会生成。
+        enableDeleteByExample：是否通过example对象生成删除语句。这个声明使得许多不同的动态删除在运行时生成。
+        enableCountByExample：是否通过example对象生成计算行数语句。该语句将返回一个表中的行数相匹配的example。
+        enableUpdateByExample：是否通过example对象生成更新语句。该语句将更新一个表中相匹配的记录。
+        selectByPrimaryKeyQueryId：这个值将被添加到选择列表中选择通过主键的声明在本表格:“' <值>作为QUERYID”。这可以用于识别查询在DBA在运行时跟踪工具。如果你需使用,你应该指定一个唯一的id为每个不同的查询生成MBG。
+        selectByExampleQueryId：这个值将被添加到选择列表中选择通过例子的声明在本表格:“' <值>作为QUERYID”。这可以用于识别查询在DBA在运行时跟踪工具。如果你需使用,你应该指定一个唯一的id为每个不同的查询生成MBG。
+        enableSelectByExample:是否应该生成通过example的选择语句。这个声明使得许多不同的动态查询是在运行时生成。
+        modelType：此属性用于覆盖默认的模型类型,如果你想对这张表这么做。如果未指定,MBG将生成的域对象基于上下文默认的模型类型。
+        该模型类型定义了如何将生成MBG域类。
+        一些模型类型MBG将生成一个单一的域类为每个表,和其他可能产生不同的类MBG取决于表的结构。
+        escapeWildcards：排除通配符。这意味着无论SQL通配符(' _ '和' % ')的模式和表名都应该避免在搜寻列。
+        这是一些驱动要求如果模式或表包含一个SQL通配符(例如,如果一个表的名字是MY_TABLE,一些驱动要求的下划线字符进行转义)。
+        -->
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 mapperName是mapper类的名称 -->
+        <table tableName="t_user" domainObjectName="User"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="true"/>
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

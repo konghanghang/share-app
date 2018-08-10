@@ -1,6 +1,6 @@
 package com.ysla.web.config.shiro.filter;
 
-import com.ysla.api.shiro.RolePermRule;
+import com.ysla.api.model.shiro.RolePermRule;
 import com.ysla.web.config.shiro.rest.RestPathMatchingFilterChainResolver;
 import com.ysla.web.support.SpringContextHolder;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;

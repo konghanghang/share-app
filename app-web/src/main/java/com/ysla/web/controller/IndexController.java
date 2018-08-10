@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class IndexController {
 
-    @Reference(version="1.0.0")
+    @Reference(version="${dubbo.service.version}")
     private IHelloService helloService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)

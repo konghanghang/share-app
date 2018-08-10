@@ -1,4 +1,4 @@
-package com.ysla.api.common;
+package com.ysla.api.model.common;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

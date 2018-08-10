@@ -1,0 +1,36 @@
+# dubbo
+dubbo :
+  application :
+    owner: konghang
+    version: 1.0.0
+  protocol:
+    prot: 20880
+    name: dubbo
+    id: dubbo
+  registry:
+    address: zookeeper://127.0.0.1:2181
+  provider:
+    timeout: 10000
+  service:
+    version: 1.0.0
+management:
+  # Enables Dubbo All Endpoints
+  endpoint:
+    dubbo:
+      enabled: true
+      dubbo-shutdown:
+        enabled: true
+      dubbo-configs:
+        enabled: true
+      dubbo-services:
+        enabled: true
+      dubbo-references:
+        enabled: true
+      dubbo-properties:
+        enabled: true
+  # Dubbo Health
+  health:
+    dubbo:
+      status:
+        ## StatusChecker Name defaults (default : "memory", "load" )
+        defaults: memory
