@@ -1,6 +1,8 @@
 # springboot-dubbo-shiro
 blog后台源代码
 
+基于springboot,dubbo,shiro,jwt的restful风格api
+
 ### 项目结构
 ```
 .
@@ -98,3 +100,40 @@ public class ProviderApplication{
 app-web则还是一个正常的web应用.
 
 其他详细参看官方项目以及本项目源代码.
+
+### mybatis集成
+集成mybatis采用注解形式,主要介绍一下`@Results`和`@ResultMap`注解
+1. @Results:当数据库字段名与实体类对应的属性名不一致时，可以使用@Results映射来将其对应起来。column为数据库字段名，porperty为实体类属性名，jdbcType为数据库字段数据类型，id为是否为主键
+    ```java
+    @Results({
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="ref_user_id", property="refUserId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="salt", property="salt", jdbcType=JdbcType.VARCHAR),
+        @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
+        @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR),
+        @Result(column="head_image", property="headImage", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_ip", property="createIp", jdbcType=JdbcType.VARCHAR),
+        @Result(column="create_date", property="createDate", jdbcType=JdbcType.BIGINT)
+    })
+    User selectByPrimaryKey(Integer userId);
+    ```
+2. @ResultMap:当这段@Results代码需要在多个方法用到时，为了提高代码复用性，我们可以为这个@Results注解设置id，然后使用@ResultMap注解来复用这段代码。
+    ```java
+    @Results(id = "userInfo",value = {
+            @Result(column="ref_user_id", property="refUserId", jdbcType=JdbcType.VARCHAR),
+            @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+            @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
+            @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
+            @Result(column="email", property="email", jdbcType=JdbcType.VARCHAR)
+    })
+    @Select({"select ref_user_id, username, nick_name from t_user where ref_user_id = #{userId}"})
+    JSONObject simpleInfo(String userId);
+    
+    @ResultMap(value = "userInfo")
+    @Select({"select ref_user_id, username, nick_name,sex,email from t_user where ref_user_id = #{userId}"})
+    JSONObject simpleInfo2(String userId);
+    ```
+    这里用一个地方需要注意:***@Results的id所在的那个方法的返回类型一定要和@ResultMap注解方法的返回类型一致***.

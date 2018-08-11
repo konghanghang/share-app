@@ -68,3 +68,5 @@ mybatis:
     map-underscore-to-camel-case: true
     # 使用JDBC的getGeneratedKeys获取数据库自增主键值
     useGeneratedKeys: true
+  # 指向实体类包路径
+  #type-aliases-package: com.ysla.api.auto.model
