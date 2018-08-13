@@ -64,6 +64,10 @@ public class ShiroFilterChainManager {
         rule.setUrl("/index--POST");
         rule.setNeedRoles("role_anon");
         rolePermRules.add(rule);
+        RolePermRule rolePermRule1 = new RolePermRule();
+        rolePermRule1.setUrl("/api/user/register");
+        rolePermRule1.setNeedRoles("role_anon");
+        rolePermRules.add(rolePermRule1);
     }
 
     /**

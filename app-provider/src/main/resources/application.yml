@@ -46,8 +46,8 @@ dubbo :
     status: server
   registry:
     id: app-provider
-  scan:
-    basePackages: com.ysla.provider.module
+  #scan:
+    #basePackages: com.ysla.provider.module
 management:
   # Dubbo Health
   health:

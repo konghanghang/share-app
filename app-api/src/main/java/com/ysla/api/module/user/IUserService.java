@@ -1,7 +1,7 @@
 package com.ysla.api.module.user;
 
-import com.alibaba.fastjson.JSONObject;
 import com.ysla.api.auto.model.User;
+import com.ysla.api.model.exception.TxException;
 
 /**
  * 用户api接口
@@ -9,10 +9,19 @@ import com.ysla.api.auto.model.User;
  */
 public interface IUserService {
 
+    /**
+     * 查询用户
+     * @param user
+     * @return
+     */
     User selectUserBy(User user);
 
-    JSONObject simpleInfo(String userId);
-
-    JSONObject simpleInfo2(String userId);
+    /**
+     * 注册用户
+     * @param user
+     * @return
+     * @throws TxException
+     */
+    Integer saveUser(User user) throws TxException;
 
 }

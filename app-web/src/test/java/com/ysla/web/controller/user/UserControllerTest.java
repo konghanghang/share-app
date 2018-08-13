@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
 @WebAppConfiguration
+@SpringBootTest
 public class UserControllerTest {
 
     private MockMvc mvc;
@@ -39,8 +39,38 @@ public class UserControllerTest {
     public void login() throws Exception {
         RequestBuilder request = post("/api/user/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("name","konghang")
+                .param("username","konghang")
                 .param("password","123456");
+        String rs = mvc.perform(request)
+                //.andDo(print())
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        System.out.println(rs);
+    }
+
+    @Test
+    public void register() throws Exception {
+        RequestBuilder request = post("/api/user/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("username","konghang1")
+                .param("password","123456")
+                .param("email","test@123.com")
+                .param("nickname","test");
+        String rs = mvc.perform(request)
+                //.andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        System.out.println(rs);
+    }
+
+    @Test
+    public void userInfo() throws Exception {
+        RequestBuilder request = post("/api/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization","11");
         String rs = mvc.perform(request)
                 //.andDo(print())
                 .andExpect(status().isOk())

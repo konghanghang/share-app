@@ -23,7 +23,11 @@ public class JsonApi<T> {
     }
 
     public static JsonApi isFail(){
-        return new JsonApi().code(FAIL);
+        return isFail(FAIL);
+    }
+
+    public static JsonApi isFail(Integer code){
+        return new JsonApi().code(code);
     }
 
     public static JsonApi isFail(Throwable e){

@@ -29,8 +29,8 @@ dubbo :
     name : app-web
   registry :
     id: app-web
-  scan:
-    basePackages: com.ysla.web.controller
+  #scan:
+    #basePackages: com.ysla.web.controller
 # Dubbo Endpoint (default status is disable)
 endpoints:
   dubbo:

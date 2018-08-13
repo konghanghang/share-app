@@ -16,7 +16,7 @@ public class UserDaoSqlProvider {
      */
     public String selectUserBy(User user){
         SQL sql = new SQL();
-        sql.SELECT("user_id","ref_user_id","username","nick_name","sex","email");
+        sql.SELECT("user_id","ref_user_id","username","salt","password","nickname","sex","email");
         sql.FROM("t_user");
         if (user.getRefUserId() != null){
             sql.WHERE("ref_user_id = #{refUserId}");

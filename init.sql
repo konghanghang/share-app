@@ -10,7 +10,7 @@ create table t_user
   comment 'refId',
   username   varchar(12) default '' not null
   comment '用户名',
-  nick_name   varchar(12)            null
+  nickname   varchar(12)            null
   comment '用户昵称',
   salt       varchar(128)           not null
   comment '加密盐',

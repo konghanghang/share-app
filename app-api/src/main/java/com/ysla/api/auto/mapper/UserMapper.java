@@ -21,12 +21,12 @@ public interface UserMapper {
 
     @Insert({
         "insert into t_user (ref_user_id, username, ",
-        "nick_name, salt, ",
+        "nickname, salt, ",
         "`password`, sex, email, ",
         "head_image, create_ip, ",
         "create_date)",
         "values (#{refUserId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, ",
-        "#{nickName,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, ",
+        "#{nickname,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, ",
         "#{password,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, ",
         "#{headImage,jdbcType=VARCHAR}, #{createIp,jdbcType=VARCHAR}, ",
         "#{createDate,jdbcType=BIGINT})"
@@ -40,7 +40,7 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "user_id, ref_user_id, username, nick_name, salt, `password`, sex, email, head_image, ",
+        "user_id, ref_user_id, username, nickname, salt, `password`, sex, email, head_image, ",
         "create_ip, create_date",
         "from t_user",
         "where user_id = #{userId,jdbcType=INTEGER}"
@@ -49,7 +49,7 @@ public interface UserMapper {
         @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="ref_user_id", property="refUserId", jdbcType=JdbcType.VARCHAR),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
-        @Result(column="nick_name", property="nickName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="nickname", property="nickname", jdbcType=JdbcType.VARCHAR),
         @Result(column="salt", property="salt", jdbcType=JdbcType.VARCHAR),
         @Result(column="password", property="password", jdbcType=JdbcType.VARCHAR),
         @Result(column="sex", property="sex", jdbcType=JdbcType.TINYINT),
@@ -67,7 +67,7 @@ public interface UserMapper {
         "update t_user",
         "set ref_user_id = #{refUserId,jdbcType=VARCHAR},",
           "username = #{username,jdbcType=VARCHAR},",
-          "nick_name = #{nickName,jdbcType=VARCHAR},",
+          "nickname = #{nickname,jdbcType=VARCHAR},",
           "salt = #{salt,jdbcType=VARCHAR},",
           "`password` = #{password,jdbcType=VARCHAR},",
           "sex = #{sex,jdbcType=TINYINT},",

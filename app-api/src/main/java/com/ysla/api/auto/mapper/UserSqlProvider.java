@@ -17,8 +17,8 @@ public class UserSqlProvider {
             sql.VALUES("username", "#{username,jdbcType=VARCHAR}");
         }
         
-        if (record.getNickName() != null) {
-            sql.VALUES("nick_name", "#{nickName,jdbcType=VARCHAR}");
+        if (record.getNickname() != null) {
+            sql.VALUES("nickname", "#{nickname,jdbcType=VARCHAR}");
         }
         
         if (record.getSalt() != null) {
@@ -64,8 +64,8 @@ public class UserSqlProvider {
             sql.SET("username = #{username,jdbcType=VARCHAR}");
         }
         
-        if (record.getNickName() != null) {
-            sql.SET("nick_name = #{nickName,jdbcType=VARCHAR}");
+        if (record.getNickname() != null) {
+            sql.SET("nickname = #{nickname,jdbcType=VARCHAR}");
         }
         
         if (record.getSalt() != null) {

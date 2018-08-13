@@ -1,5 +1,6 @@
 package com.ysla.provider;
 
+import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  */
 @SpringBootApplication
 @MapperScan(value = {"com.ysla.provider.module"})
+@DubboComponentScan(basePackages="com.ysla.provider.module")
 public class ProviderApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ProviderApplication.class);
