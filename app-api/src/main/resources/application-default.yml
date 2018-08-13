@@ -1,3 +1,7 @@
+#spring
+spring:
+  aop:
+    proxy-target-class: true
 # dubbo
 dubbo :
   application :

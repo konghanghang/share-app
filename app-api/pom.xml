@@ -72,6 +72,12 @@
             <!--<optional>true</optional>--><!--设置为true依赖不会传递-->
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>

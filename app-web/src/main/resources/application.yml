@@ -6,6 +6,9 @@ spring:
   application:
     name: app-web
 
+application:
+  version: 1.0.0
+
 com:
   ysla:
     #swagger属性配置

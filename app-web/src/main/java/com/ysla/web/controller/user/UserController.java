@@ -33,7 +33,7 @@ public class UserController {
 
     @ApiOperation(value="测试方法", notes="用来测试")
     @RequestMapping(value = "/test",method = RequestMethod.GET)
-    public String test(){
+    public JsonApi test(){
         User user = new User();
         user.setUsername("konghang");
         user = userService.selectUserBy(user);
@@ -42,7 +42,8 @@ public class UserController {
         System.out.println(JSON.toJSONString(jsonObject));
         JSONObject json = userService.simpleInfo2("afa379e415b044aca48a7e0d2025d4b1");
         System.out.println(JSON.toJSONString(json));
-        return "success";
+        json.put("test",null);
+        return JsonApi.isOk().data(user);
     }
 
 }

@@ -22,4 +22,4 @@ ${AnsiColor.BRIGHT_YELLOW}
 //            佛祖保佑       永不宕机     永无BUG                    //
 ////////////////////////////////////////////////////////////////////
 ${AnsiColor.BRIGHT_BLUE}
-::: Project (version:${application.version}) :::             ＼(^O^)／    Spring-Boot ${spring-boot.version}
+::: Project (version:${application.version}) :::            Spring-Boot ${spring-boot.version}
