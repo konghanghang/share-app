@@ -5,7 +5,7 @@ spring:
     name: dev
     url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: 2222
+    password: ENC(SEjnLncfMqVBpC5azehhsQ==)
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver

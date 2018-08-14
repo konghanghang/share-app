@@ -38,3 +38,7 @@ management:
       status:
         ## StatusChecker Name defaults (default : "memory", "load" )
         defaults: memory
+jasypt:
+  encryptor:
+    #这里可以理解成是加解密的时候使用的密钥
+    password: xlvidcmimamaxqxl
