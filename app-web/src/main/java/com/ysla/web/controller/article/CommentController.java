@@ -28,7 +28,7 @@ import javax.validation.Valid;
  * @author konghang
  */
 @CrossOrigin
-@Api(description = "文章评论api")
+@Api(tags = "文章评论api", description = "文章评论api")
 @RestController
 @RequestMapping("/api/article/comment")
 public class CommentController {

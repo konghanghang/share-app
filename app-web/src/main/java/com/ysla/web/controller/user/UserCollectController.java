@@ -11,6 +11,7 @@ import com.ysla.api.model.page.PageModel;
 import com.ysla.api.module.user.IUserCollectService;
 import com.ysla.api.module.user.IUserService;
 import com.ysla.web.config.shiro.JwtUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * 用户收藏api
  * @author konghang
  */
+@Api(tags = "用户收藏api", description = "用户收藏api")
 @CrossOrigin
 @RestController
 @RequestMapping("/api/collect")

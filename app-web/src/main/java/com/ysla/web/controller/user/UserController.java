@@ -15,8 +15,7 @@ import com.ysla.utils.crypto.CryptoUtils;
 import com.ysla.utils.string.StringUtils;
 import com.ysla.web.config.shiro.JwtUtil;
 import com.ysla.web.vo.UserVO;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +27,7 @@ import javax.validation.Valid;
  * @author konghang
  */
 @CrossOrigin
+@Api(tags = "用户api", description = "用户api")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -36,6 +36,10 @@ public class UserController {
     private IUserService userService;
 
     @ApiOperation(value="用户登录", notes="用户登录,使用用户名和邮箱都可以")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, type = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, type = "String")
+    })
     @PostMapping(value="/login", produces="application/json;charset=UTF-8")
     public JsonApi login(String username, String password) {
         User search = new User();
@@ -61,10 +65,10 @@ public class UserController {
         return JsonApi.isOk().message(token).data(json);
     }
 
-    @ApiOperation(value="用户注册", tags={"注册"}, notes="用户可以注册", produces="application/json;charset=UTF-8")
+    @ApiOperation(value="用户注册", notes="用户可以注册")
+    @ApiImplicitParam(name = "userVO", value = "用户对象", required = true, type = "String")
     @PostMapping(value = "/register")
-    public JsonApi register(@Valid @ApiParam(name="用户对象",value="传入json格式",required=true) UserVO userVO,
-                            HttpServletRequest request) {
+    public JsonApi register(@Valid UserVO userVO, HttpServletRequest request) {
         User user = new User();
         BeanUtils.copyProperties(userVO,user);
         user.setCreateIp(IpUtils.getRealIp(request));
@@ -76,9 +80,10 @@ public class UserController {
         return JsonApi.isOk();
     }
 
-    @ApiOperation(value="用户信息", tags={"获取用户信息"}, notes="获取用户信息")
+    @ApiOperation(value="用户信息", notes="获取用户信息")
+    @ApiImplicitParam(name = "Authorization", value = "Authorization", required = true, type = "String")
     @GetMapping(value = "", produces="application/json;charset=UTF-8")
-    public JsonApi userInfo(@RequestHeader(name = "Authorization", required = true) String token){
+    public JsonApi userInfo(@RequestHeader(name = "Authorization") String token){
         String username = JwtUtil.getUsername(token);
         User user = new User();
         user.setUsername(username);

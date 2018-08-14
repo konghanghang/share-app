@@ -101,7 +101,7 @@ public interface IArticleCommentDao extends ArticleCommentMapper {
      * @param num
      * @return
      */
-    @Update({"update t_article_comment set approve = approve + #{num} where ref_commentId = #{commentId}"})
+    @Update({"update t_article_comment set approve = approve + #{num} where ref_comment_id = #{commentId}"})
     int updateApprove(@Param("commentId") String commentId,@Param("num") Integer num);
 
 }

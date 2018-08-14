@@ -3,7 +3,7 @@ spring:
     name: app-provider
   datasource:
     name: dev
-    url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: 2222
     # 使用druid数据源

@@ -14,6 +14,7 @@ public interface IUserCollectService {
      * 收藏
      * @param userCollect
      * @return
+     * @throws TxException
      */
     int collect(UserCollect userCollect) throws TxException;
 
