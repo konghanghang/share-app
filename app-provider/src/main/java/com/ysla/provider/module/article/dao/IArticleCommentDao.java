@@ -95,4 +95,13 @@ public interface IArticleCommentDao extends ArticleCommentMapper {
             " order by ac.create_date desc"})
     List<JSONObject> replayTo(String username);
 
+    /**
+     * 更新评论点赞数
+     * @param commentId
+     * @param num
+     * @return
+     */
+    @Update({"update t_article_comment set approve = approve + #{num} where ref_commentId = #{commentId}"})
+    int updateApprove(@Param("commentId") String commentId,@Param("num") Integer num);
+
 }

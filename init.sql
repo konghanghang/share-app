@@ -98,3 +98,25 @@ create table t_article_comment
   create_date   bigint(11)                    not null
   comment '评论创建时间'
 );
+
+DROP TABLE IF EXISTS t_user_collect;
+create table t_user_collect
+(
+  collect_id    int(11) unsigned auto_increment
+  comment '收藏id'
+    primary key,
+  ref_collect_id varchar(32) default '' not null
+  comment 'ref收藏id',
+  user_id       varchar(32) default '' not null
+  comment '用户id',
+  link_id       varchar(32) default '' not null
+  comment '关联id,文章或者评论',
+  status       tinyint                not null
+  comment '状态,0:正常1:删除',
+  type         tinyint default '1'    not null
+  comment '类型1:文章收藏2:文章点赞',
+  create_date   bigint(11)             not null
+  comment '创建时间',
+  constraint userAndArticle
+  unique (user_id, link_id)
+);

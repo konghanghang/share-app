@@ -124,4 +124,25 @@ public class ArticleProvider {
         return sql.toString();
     }
 
+    /**
+     * 更新文章统计数据
+     * @param record
+     * @return
+     */
+    public String updateStatistics(Article record){
+        SQL sql = new SQL();
+        sql.UPDATE("t_article");
+        if (record.getCountView() != null) {
+            sql.SET("count_view = count_view + #{countView}");
+        }
+        if (record.getCountComment() != null) {
+            sql.SET("count_comment = count_comment + #{countComment}");
+        }
+        if (record.getCountCollection() != null) {
+            sql.SET("count_collection = count_collection + #{countCollection}");
+        }
+        sql.WHERE("ref_article_id = #{refArticleId}");
+        return sql.toString();
+    }
+
 }

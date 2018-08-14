@@ -72,4 +72,12 @@ public interface IArticleDao extends ArticleMapper {
             " from t_article where status = 0 order by count_view desc,count_comment desc limit 0,5"})
     List<JSONObject> chosen();
 
+    /**
+     * 更新文章统计数据
+     * @param article
+     * @return
+     */
+    @UpdateProvider(type = ArticleProvider.class, method = "updateStatistics")
+    int updateStatistics(Article article);
+
 }

@@ -115,5 +115,11 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="commentId" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="t_user_collect" domainObjectName="UserCollect"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="collectId" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

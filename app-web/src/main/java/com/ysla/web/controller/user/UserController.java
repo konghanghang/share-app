@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @ApiOperation(value="用户信息", tags={"获取用户信息"}, notes="获取用户信息")
-    @GetMapping(value = "/", produces="application/json;charset=UTF-8")
+    @GetMapping(value = "", produces="application/json;charset=UTF-8")
     public JsonApi userInfo(@RequestHeader(name = "Authorization", required = true) String token){
         String username = JwtUtil.getUsername(token);
         User user = new User();
