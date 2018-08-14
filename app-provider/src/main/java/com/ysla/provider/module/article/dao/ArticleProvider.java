@@ -1,13 +1,14 @@
 package com.ysla.provider.module.article.dao;
 
 import com.ysla.api.auto.model.Article;
+import com.ysla.api.auto.model.ArticleComment;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
  * 文章查询动态sql
  * @author konghang
  */
-public class ArticleDaoProvider {
+public class ArticleProvider {
 
     /**
      * 获取所有文章
@@ -28,7 +29,7 @@ public class ArticleDaoProvider {
      * @param record
      * @return
      */
-    public String updateByRefSelective(Article record){
+    public String updateByArticleRefSelective(Article record){
         SQL sql = new SQL();
 
         sql.UPDATE("t_article");
@@ -76,6 +77,50 @@ public class ArticleDaoProvider {
             sql.SET("md_content = #{mdContent,jdbcType=LONGVARCHAR}");
         }
         sql.WHERE("ref_article_id = #{refArticleId}");
+        return sql.toString();
+    }
+
+    /**
+     * 更新文章评论通过refId
+     * @param record
+     * @return
+     */
+    public String updateCommentByRefSelective(ArticleComment record) {
+        SQL sql = new SQL();
+        sql.UPDATE("t_article_comment");
+
+        if (record.getApprove() != null) {
+            sql.SET("approve = #{approve,jdbcType=INTEGER}");
+        }
+        if (record.getFloor() != null) {
+            sql.SET("`floor` = #{floor,jdbcType=INTEGER}");
+        }
+        if (record.getRefArticleId() != null) {
+            sql.SET("ref_article_id = #{refArticleId,jdbcType=VARCHAR}");
+        }
+        if (record.getReplayUser() != null) {
+            sql.SET("replay_user = #{replayUser,jdbcType=VARCHAR}");
+        }
+        if (record.getReplayTo() != null) {
+            sql.SET("replay_to = #{replayTo,jdbcType=VARCHAR}");
+        }
+        if (record.getReplayRefId() != null) {
+            sql.SET("replay_ref_d = #{replayRefD,jdbcType=VARCHAR}");
+        }
+        if (record.getStatus() != null) {
+            sql.SET("`status` = #{status,jdbcType=TINYINT}");
+        }
+        if (record.getCreateIp() != null) {
+            sql.SET("create_ip = #{createIp,jdbcType=VARCHAR}");
+        }
+        if (record.getCreateDate() != null) {
+            sql.SET("create_date = #{createDate,jdbcType=BIGINT}");
+        }
+        if (record.getContent() != null) {
+            sql.SET("content = #{content,jdbcType=LONGVARCHAR}");
+        }
+        sql.WHERE("ref_comment_id = #{refCommentId,jdbcType=VARCHAR}");
+
         return sql.toString();
     }
 

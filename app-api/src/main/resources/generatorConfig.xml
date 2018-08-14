@@ -109,5 +109,11 @@
             <columnOverride column="mdContent" javaType="java.lang.String" jdbcType="VARCHAR" />
             <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
         </table>
+        <table tableName="t_article_comment" domainObjectName="ArticleComment"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="commentId" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

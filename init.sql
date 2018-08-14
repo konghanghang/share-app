@@ -68,3 +68,33 @@ create table t_article
   update_date      bigint(11) default '0'        null
   comment '更新时间'
 );
+
+DROP TABLE IF EXISTS t_article_comment;
+create table t_article_comment
+(
+  comment_id    int(11) unsigned auto_increment
+  comment '评论id'
+    primary key,
+  ref_comment_id varchar(32) default ''        not null
+  comment 'ref评论id',
+  content      text                          not null
+  comment '评论内容',
+  approve      int default '0'               not null
+  comment '赞',
+  floor        int default '0'               null
+  comment '楼',
+  ref_article_id varchar(32) default ''        not null
+  comment 'ref文章Id',
+  replay_user   varchar(32) default ''        not null
+  comment '评论的用户id',
+  replay_to     varchar(32) default '""'      not null
+  comment '被回复的用户',
+  replay_ref_id  varchar(32) default ''        not null
+  comment '被回复评论Id,',
+  status       tinyint default '0'           not null
+  comment '评论状态0:正常,1:删除',
+  create_ip     varchar(15) default '0.0.0.1' not null
+  comment '创建ip',
+  create_date   bigint(11)                    not null
+  comment '评论创建时间'
+);

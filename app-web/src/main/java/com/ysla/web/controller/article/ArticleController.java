@@ -44,7 +44,7 @@ public class ArticleController {
 
     //@IpStatisticsAop
     @ApiOperation(value="添加文章", httpMethod = "POST", notes="所有字段均不能为空,且标题不能超过100字")
-    @ApiImplicitParam(name = "articleVO", value = "文章详细实体articleVO", required = true, dataType = "articleVO")
+    @ApiImplicitParam(name = "articleVO", value = "文章详细实体articleVO", required = true)
     @ApiResponse(code = 200, message = "success", response = JsonApi.class)
     @PostMapping(value = "",produces="application/json;charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)

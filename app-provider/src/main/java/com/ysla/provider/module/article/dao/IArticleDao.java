@@ -61,7 +61,7 @@ public interface IArticleDao extends ArticleMapper {
      * @param article
      * @return
      */
-    @UpdateProvider(type = ArticleDaoProvider.class, method = "updateByRefSelective")
+    @UpdateProvider(type = ArticleProvider.class, method = "updateByArticleRefSelective")
     int updateByRefSelective(Article article);
 
     /**
