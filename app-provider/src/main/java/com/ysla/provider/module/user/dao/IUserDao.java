@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.SelectProvider;
 
 /**
- * mapper扩展类
+ * 用户mapper扩展类
  * @author konghang
  */
 @Mapper

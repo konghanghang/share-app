@@ -27,11 +27,12 @@ import javax.validation.Valid;
  * 用户api
  * @author konghang
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Reference(version = "${dubbo.service.version}")
+    @Reference(version = "${dubbo.service.version}",check = false, timeout = 10000)
     private IUserService userService;
 
     @ApiOperation(value="用户登录", notes="用户登录,使用用户名和邮箱都可以")
@@ -76,7 +77,7 @@ public class UserController {
     }
 
     @ApiOperation(value="用户信息", tags={"获取用户信息"}, notes="获取用户信息")
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces="application/json;charset=UTF-8")
+    @GetMapping(value = "/", produces="application/json;charset=UTF-8")
     public JsonApi userInfo(@RequestHeader(name = "Authorization", required = true) String token){
         String username = JwtUtil.getUsername(token);
         User user = new User();

@@ -49,6 +49,8 @@ public class ShiroFilterChainManager {
                 }
             });
         }
+        List<String> user = Arrays.asList("/api/article/chosen","/api/article--GET","/api/article/**--GET");
+        user.forEach(ignored -> filterChain.put(ignored,"anon"));
         // -------------jwt jwt相关,无角色需求
         List<String> defaultJwt = Arrays.asList("/**");
         defaultJwt.forEach(jwt -> filterChain.put(jwt, "jwt"));

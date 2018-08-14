@@ -1,0 +1,82 @@
+package com.ysla.provider.module.article.dao;
+
+import com.ysla.api.auto.model.Article;
+import org.apache.ibatis.jdbc.SQL;
+
+/**
+ * 文章查询动态sql
+ * @author konghang
+ */
+public class ArticleDaoProvider {
+
+    /**
+     * 获取所有文章
+     * @param username
+     * @return
+     */
+    public String getArticles(String username){
+        SQL sql = new SQL();
+        sql.SELECT("a.article_id","a.ref_article_id","u.nickname author","a.title","a.count_view","a.count_comment");
+        sql.SELECT("a.count_collection","a.type","a.create_date","a.cover_image","a.description");
+        sql.FROM("t_article a");
+        sql.LEFT_OUTER_JOIN("t_user u");
+        return sql.toString();
+    }
+
+    /**
+     * 更新文章通过refId
+     * @param record
+     * @return
+     */
+    public String updateByRefSelective(Article record){
+        SQL sql = new SQL();
+
+        sql.UPDATE("t_article");
+
+        if (record.getRefUserId() != null) {
+            sql.SET("ref_user_id = #{refUserId,jdbcType=VARCHAR}");
+        }
+        if (record.getTitle() != null) {
+            sql.SET("title = #{title,jdbcType=VARCHAR}");
+        }
+        if (record.getDescription() != null) {
+            sql.SET("description = #{description,jdbcType=VARCHAR}");
+        }
+        if (record.getContent() != null) {
+            sql.SET("content = #{content,jdbcType=VARCHAR}");
+        }
+        if (record.getCoverImage() != null) {
+            sql.SET("cover_image = #{coverImage,jdbcType=VARCHAR}");
+        }
+        if (record.getCountView() != null) {
+            sql.SET("count_view = #{countView,jdbcType=INTEGER}");
+        }
+        if (record.getCountComment() != null) {
+            sql.SET("count_comment = #{countComment,jdbcType=INTEGER}");
+        }
+        if (record.getCountCollection() != null) {
+            sql.SET("count_collection = #{countCollection,jdbcType=INTEGER}");
+        }
+        if (record.getType() != null) {
+            sql.SET("`type` = #{type,jdbcType=VARCHAR}");
+        }
+        if (record.getStatus() != null) {
+            sql.SET("`status` = #{status,jdbcType=TINYINT}");
+        }
+        if (record.getCreateIp() != null) {
+            sql.SET("create_ip = #{createIp,jdbcType=VARCHAR}");
+        }
+        if (record.getCreateDate() != null) {
+            sql.SET("create_date = #{createDate,jdbcType=BIGINT}");
+        }
+        if (record.getUpdateDate() != null) {
+            sql.SET("update_date = #{updateDate,jdbcType=BIGINT}");
+        }
+        if (record.getMdContent() != null) {
+            sql.SET("md_content = #{mdContent,jdbcType=LONGVARCHAR}");
+        }
+        sql.WHERE("ref_article_id = #{refArticleId}");
+        return sql.toString();
+    }
+
+}

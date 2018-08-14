@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS t_user;
 create table t_user
 (
   user_id     int auto_increment
+    primary key,
   comment '用户id',
   ref_user_id  varchar(32)            not null
   comment 'refId',
@@ -31,5 +32,39 @@ create table t_user
   unique (user_id)
 );
 
-alter table t_user
-  add primary key (user_id);
+
+DROP TABLE IF EXISTS t_article;
+create table t_article
+(
+  article_id       int(11) unsigned auto_increment
+    primary key,
+  ref_article_id    varchar(32)                   not null,
+  ref_user_id       varchar(32) default ''        not null
+  comment '用户(作者)refUserId',
+  title           varchar(100)                  not null
+  comment '文章标题',
+  description     varchar(130) default ''       not null
+  comment '文章简介',
+  md_content       text                          null
+  comment 'md',
+  content         text                          not null
+  comment '文章内容',
+  cover_image      varchar(100) default ''       not null
+  comment '封面图片,加上缩略图路径70个字段足够',
+  count_view       int default '0'               null
+  comment '浏览总数',
+  count_comment    int default '0'               null
+  comment '评论总数',
+  count_collection int default '0'               null
+  comment '收藏总数',
+  type            varchar(10)                   not null
+  comment '文章分类',
+  status          tinyint default '0'           not null
+  comment '文章状态,0:正常,1:删除',
+  create_ip        varchar(15) default '0.0.0.1' null
+  comment '创建ip',
+  create_date      bigint(11) default '0'        null
+  comment '创建时间',
+  update_date      bigint(11) default '0'        null
+  comment '更新时间'
+);

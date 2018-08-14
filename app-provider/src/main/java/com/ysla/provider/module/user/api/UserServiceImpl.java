@@ -48,12 +48,12 @@ public class UserServiceImpl implements IUserService {
         User search = new User();
         //判断是否重名
         search.setUsername(user.getUsername());
-        if(!StringUtils.isEmpty(userDao.selectUserBy(user))){
+        if(!StringUtils.isEmpty(userDao.selectUserBy(search))){
             throw new BaseException(ErrorCode.USER_NAME_EXIST);
         }
         search.setUsername(null);
         search.setEmail(user.getEmail());
-        if(!StringUtils.isEmpty(userDao.selectUserBy(user))){
+        if(!StringUtils.isEmpty(userDao.selectUserBy(search))){
             throw new BaseException(ErrorCode.USER_EMAIL_EXIST);
         }
         //取到加密种子
