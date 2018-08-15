@@ -9,10 +9,6 @@ public class ArticleCommentSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_article_comment");
         
-        if (record.getCommentId() != null) {
-            sql.VALUES("comment_id", "#{commentId,jdbcType=INTEGER}");
-        }
-        
         if (record.getRefCommentId() != null) {
             sql.VALUES("ref_comment_id", "#{refCommentId,jdbcType=VARCHAR}");
         }

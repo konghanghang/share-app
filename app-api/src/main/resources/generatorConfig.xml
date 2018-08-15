@@ -113,13 +113,25 @@
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="commentId" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="comment_id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="t_user_collect" domainObjectName="UserCollect"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="collectId" sqlStatement="MySql" identity="true"/>
+            <generatedKey column="collect_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="wx_mp" domainObjectName="WxMp"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="mp_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="wx_user" domainObjectName="WxUser"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

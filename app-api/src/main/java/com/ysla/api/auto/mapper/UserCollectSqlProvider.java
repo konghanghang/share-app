@@ -9,10 +9,6 @@ public class UserCollectSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_user_collect");
         
-        if (record.getCollectId() != null) {
-            sql.VALUES("collect_id", "#{collectId,jdbcType=INTEGER}");
-        }
-        
         if (record.getRefCollectId() != null) {
             sql.VALUES("ref_collect_id", "#{refCollectId,jdbcType=VARCHAR}");
         }

@@ -36,7 +36,6 @@ public class XmlUtils {
                 // 对所有xml节点的转换都增加CDATA标记
                 boolean cdata = true;
 
-                //@SuppressWarnings("unchecked")
                 @Override
                 public void startNode(String name, Class clazz) {
                     super.startNode(name, clazz);
@@ -96,9 +95,8 @@ public class XmlUtils {
     }
 
     public static Map<String,String> xml2map(InputStream inputStream) throws IOException, DocumentException {
-        Map<String,String> map = new HashMap<String, String>();
+        Map<String,String> map = new HashMap<>(16);
         SAXReader reader = new SAXReader();
-        //InputStream inputStream = request.getInputStream();
         Document document = reader.read(inputStream);
         Element root = document.getRootElement();
         List<Element> list = root.elements();

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
@@ -19,22 +20,24 @@ public interface ArticleCommentMapper {
     int deleteByPrimaryKey(Integer commentId);
 
     @Insert({
-        "insert into t_article_comment (comment_id, ref_comment_id, ",
-        "approve, `floor`, ",
-        "ref_article_id, replay_user, ",
-        "replay_to, replay_ref_id, ",
-        "`status`, create_ip, ",
-        "create_date, content)",
-        "values (#{commentId,jdbcType=INTEGER}, #{refCommentId,jdbcType=VARCHAR}, ",
-        "#{approve,jdbcType=INTEGER}, #{floor,jdbcType=INTEGER}, ",
-        "#{refArticleId,jdbcType=VARCHAR}, #{replayUser,jdbcType=VARCHAR}, ",
-        "#{replayTo,jdbcType=VARCHAR}, #{replayRefId,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=TINYINT}, #{createIp,jdbcType=VARCHAR}, ",
-        "#{createDate,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR})"
+        "insert into t_article_comment (ref_comment_id, approve, ",
+        "`floor`, ref_article_id, ",
+        "replay_user, replay_to, ",
+        "replay_ref_id, `status`, ",
+        "create_ip, create_date, ",
+        "content)",
+        "values (#{refCommentId,jdbcType=VARCHAR}, #{approve,jdbcType=INTEGER}, ",
+        "#{floor,jdbcType=INTEGER}, #{refArticleId,jdbcType=VARCHAR}, ",
+        "#{replayUser,jdbcType=VARCHAR}, #{replayTo,jdbcType=VARCHAR}, ",
+        "#{replayRefId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, ",
+        "#{createIp,jdbcType=VARCHAR}, #{createDate,jdbcType=BIGINT}, ",
+        "#{content,jdbcType=LONGVARCHAR})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="commentId", before=false, resultType=Integer.class)
     int insert(ArticleComment record);
 
     @InsertProvider(type=ArticleCommentSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="commentId", before=false, resultType=Integer.class)
     int insertSelective(ArticleComment record);
 
     @Select({

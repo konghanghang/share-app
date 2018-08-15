@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
@@ -19,16 +20,18 @@ public interface UserCollectMapper {
     int deleteByPrimaryKey(Integer collectId);
 
     @Insert({
-        "insert into t_user_collect (collect_id, ref_collect_id, ",
-        "user_id, link_id, ",
-        "`status`, `type`, create_date)",
-        "values (#{collectId,jdbcType=INTEGER}, #{refCollectId,jdbcType=VARCHAR}, ",
-        "#{userId,jdbcType=VARCHAR}, #{linkId,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{createDate,jdbcType=BIGINT})"
+        "insert into t_user_collect (ref_collect_id, user_id, ",
+        "link_id, `status`, ",
+        "`type`, create_date)",
+        "values (#{refCollectId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, ",
+        "#{linkId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, ",
+        "#{type,jdbcType=TINYINT}, #{createDate,jdbcType=BIGINT})"
     })
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="collectId", before=false, resultType=Integer.class)
     int insert(UserCollect record);
 
     @InsertProvider(type=UserCollectSqlProvider.class, method="insertSelective")
+    @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="collectId", before=false, resultType=Integer.class)
     int insertSelective(UserCollect record);
 
     @Select({

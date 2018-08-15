@@ -82,3 +82,61 @@ CREATE TABLE `t_user_collect` (
   PRIMARY KEY (`collect_id`),
   UNIQUE KEY `userAndArticle` (`user_id`,`link_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+--  Table structure for `wx_mp`
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_mp`;
+CREATE TABLE `wx_mp` (
+  `mp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'MpID',
+  `account` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '帐户',
+  `account_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户帐号',
+  `app_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '应用ID',
+  `app_secret` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '应用密钥',
+  `token` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '服务器认证Token',
+  `access_token` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '获取到的凭证',
+  `expires_in` bigint(11) DEFAULT '0' COMMENT '凭证有效时间，单位：秒',
+  `jsapi_ticket` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT 'JSSDK',
+  `jsapi_ticket_expires_in` bigint(11) DEFAULT '0' COMMENT 'JSSDK过期时间',
+  `js_oauth_url` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'JS接口安全域名',
+  `api_ticket` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT 'api_ticket，卡券接口中签名所需凭证',
+  `api_ticket_expires_in` bigint(11) DEFAULT '0' COMMENT 'api_ticket过期时间',
+  `mch_id` varchar(20) DEFAULT '' COMMENT '微信支付ID',
+  `wx_pay_secret` varchar(60) DEFAULT '' COMMENT '微信支付密钥',
+  `wx_pay_notify_url` varchar(120) DEFAULT '',
+  `wx_pay_cert_path` varchar(60) DEFAULT '' COMMENT '微信支付证书路径',
+  `create_date` bigint(11) NOT NULL DEFAULT '0' COMMENT 'WHO字段',
+  `create_ip` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0.0.0.0' COMMENT 'WHO字段',
+  `create_by` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'SYSTEM' COMMENT 'WHO字段',
+  `last_update_date` bigint(13) DEFAULT '0' COMMENT 'WHO字段',
+  `last_update_by` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT 'WHO字段',
+  `web_app_id` varchar(30) DEFAULT '' COMMENT '微信登陆网页应用的appId',
+  `web_app_secret` varchar(60) DEFAULT '' COMMENT '微信登录网页应用的secret',
+  PRIMARY KEY (`mp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 PACK_KEYS=0 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+--  Table structure for `h_wechat_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `wx_user`;
+CREATE TABLE `wx_user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `app_id` varchar(60) NOT NULL DEFAULT '' COMMENT '当前微信AppId',
+  `open_id` varchar(60) NOT NULL DEFAULT '' COMMENT '用户的唯一标识',
+  `union_id` varchar(60) DEFAULT '' COMMENT '开放平台统一ID',
+  `nickname` varchar(80) DEFAULT '' COMMENT '昵称',
+  `sex` tinyint(4) DEFAULT '0' COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `province` varchar(20) DEFAULT '' COMMENT '用户个人资料填写的省份',
+  `city` varchar(20) DEFAULT '' COMMENT '普通用户个人资料填写的城市',
+  `country` varchar(20) DEFAULT '' COMMENT '国家，如中国为CN',
+  `language` varchar(10) DEFAULT 'zh_CN',
+  `head_img_url` varchar(240) DEFAULT '' COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。',
+  `subscribe` tinyint(4) DEFAULT '0',
+  `subscribe_time` bigint(11) DEFAULT '0',
+  `create_date` bigint(11) NOT NULL DEFAULT '0' COMMENT 'WHO字段',
+  `last_update_date` bigint(11) DEFAULT '0' COMMENT 'WHO字段',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `wx_open_id` (`open_id`),
+  KEY `app_id` (`app_id`),
+  KEY `union_id` (`union_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 PACK_KEYS=0 ROW_FORMAT=DYNAMIC;
