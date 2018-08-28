@@ -9,6 +9,7 @@ import com.ysla.api.auto.model.NoticeTemplate;
 import com.ysla.api.auto.model.WxTemplate;
 import com.ysla.api.model.common.ErrorCode;
 import com.ysla.api.model.common.NumEnum;
+import com.ysla.api.model.common.StringEnum;
 import com.ysla.api.model.exception.TxException;
 import com.ysla.api.model.page.PageModel;
 import com.ysla.api.model.wx.api.WechatApi;
@@ -121,11 +122,11 @@ public class NoticeServiceImpl implements INoticeService {
             notice = msgTemplate.getRemark().replace("DAY",intervalDays+"") + notice;
 
             String template = wrapTemplate(msgTemplate,menses,intervalDays,notice,openId);
-            String url = WechatApi.SEND_TM.getUrl().replace("ACCESS_TOKEN",mpService.getAccessToken(appId));
+            String url = WechatApi.SEND_TM.getUrl().replace(StringEnum.ACCESS_TOKEN.getName(),mpService.getAccessToken(appId));
             JSONObject jsonObject = HttpClientUtils.httpPostJson(url, template);
             title = "定时任务发送成功:"+dateStr;
             content = "发送成功,还有" + intervalDays + "天";
-            if(!"0".equals(jsonObject.getString("errcode"))){
+            if(!"0".equals(jsonObject.getString(StringEnum.ERR_CODE.getName()))){
                 log.error("sendTemplateMsgInfo:error");
                 title = "定时任务发送失败:"+dateStr;
                 content = jsonObject.toString();

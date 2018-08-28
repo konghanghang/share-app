@@ -3,6 +3,7 @@ package com.ysla.provider.module.wx.user.api;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.ysla.api.auto.model.WxUser;
+import com.ysla.api.model.common.StringEnum;
 import com.ysla.api.model.wx.api.WechatApi;
 import com.ysla.api.module.wx.mp.IWxMpService;
 import com.ysla.api.module.wx.user.IWxUserService;
@@ -31,10 +32,6 @@ public class WxUserServiceImpl implements IWxUserService {
     @Resource
     private IWxUserDao wxUserDao;
 
-    private final String OPENID = "OPENID";
-    private final String ACCESS_TOKEN = "ACCESS_TOKEN";
-    private final String ERROR_CODE = "errcode";
-
     /**
      * 初始化微信用户信息保存到数据库
      * @param appId
@@ -58,10 +55,10 @@ public class WxUserServiceImpl implements IWxUserService {
      */
     @Override
     public WxUser getUserInfo(String openId, String appId) {
-        String url = WechatApi.M_USER_INFO.getUrl().replace(OPENID,openId);
+        String url = WechatApi.M_USER_INFO.getUrl().replace(StringEnum.OPENID.getName(),openId);
         String accessToken = mpService.getAccessToken(appId);
-        JSONObject json = HttpClientUtils.httpGet(url.replace(ACCESS_TOKEN, accessToken));
-        Integer errorCode = json.getInteger(ERROR_CODE);
+        JSONObject json = HttpClientUtils.httpGet(url.replace(StringEnum.ACCESS_TOKEN.getName(), accessToken));
+        Integer errorCode = json.getInteger(StringEnum.ERR_CODE.getName());
         WxUser wxUser = null;
         if(errorCode == null){
             wxUser = WxUserUtils.copyWxUserInfo(json);
@@ -86,8 +83,8 @@ public class WxUserServiceImpl implements IWxUserService {
     }
 
     private List<String> getUser(List<String> list,String url, String accessToken, Integer num){
-        JSONObject json = HttpClientUtils.httpGet(url.replace(ACCESS_TOKEN, accessToken));
-        Integer errorCode = json.getInteger(ERROR_CODE);
+        JSONObject json = HttpClientUtils.httpGet(url.replace(StringEnum.ACCESS_TOKEN.getName(), accessToken));
+        Integer errorCode = json.getInteger(StringEnum.ERR_CODE.getName());
         if(errorCode == null){
             Integer total = json.getInteger("total");
             Integer count = json.getInteger("count");

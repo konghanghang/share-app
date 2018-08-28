@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ysla.api.auto.model.WxMp;
 import com.ysla.api.auto.model.WxUser;
 import com.ysla.api.model.common.ErrorCode;
+import com.ysla.api.model.common.StringEnum;
 import com.ysla.api.model.wx.api.WechatApi;
 import com.ysla.api.model.wx.oauth.OauthScope;
 import com.ysla.api.model.wx.oauth.WxAccessToken;
@@ -68,22 +69,24 @@ public class ApiServiceImpl implements IApiService {
         String redirectUrl = "http://" + mpService.getWxMp(appId).getJsOauthUrl() + redirectUri;
         String connectUrl = WechatApi.AUTHORIZE_URL.getUrl();
         String oauthScope = scope.getScope();
-        if (state.length() > 100) {
+        int len = 100;
+        if (state.length() > len) {
             log.info("stateUrl too Long:" + state);
             state = state.substring(0, 100);
         }
         String stateUrl = UrlUtils.urlEncode(state);
 
-        if (stateUrl.length() >= 128) {
+        len = 128;
+        if (stateUrl.length() >= len) {
             //微信允许的最大state长度是128位
             log.info("stateUrl too Long" + stateUrl);
             //进一步的减少
             stateUrl = UrlUtils.urlEncode(state.substring(0, 80));
         }
-        return connectUrl.replace("APPID", appId)
-                .replace("REDIRECT_URI", UrlUtils.urlEncode(redirectUrl))
-                .replace("SCOPE", oauthScope)
-                .replace("STATE", stateUrl);
+        return connectUrl.replace(StringEnum.APP_ID.getName(), appId)
+                .replace(StringEnum.REDIRECT_URI.getName(), UrlUtils.urlEncode(redirectUrl))
+                .replace(StringEnum.SCOPE.getName(), oauthScope)
+                .replace(StringEnum.STATE.getName(), stateUrl);
     }
 
     /**
@@ -98,9 +101,9 @@ public class ApiServiceImpl implements IApiService {
         WxMp mp = mpService.getWxMp(appId);
         JSONObject oauthResult = HttpClientUtils.httpGet(
                 oauthUrl
-                .replace("APPID", mp.getAppId())
-                .replace("SECRET", mp.getAppSecret())
-                .replace("CODE", code));
+                .replace(StringEnum.APP_ID.getName(), mp.getAppId())
+                .replace(StringEnum.SECRET.getName(), mp.getAppSecret())
+                .replace(StringEnum.CODE.getName(), code));
         if(oauthResult == null){
             log.error("Wechat Get Oauth AccessToken Fail");
             return new WxAccessToken(ErrorCode.SYSTEM_ERROR);
@@ -117,14 +120,14 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public WxUser getWxUserInfo(String accessToken, String openId) {
         String userInfoUrl = WechatApi.USER_INFO.getUrl();
-        JSONObject userInfoResult = HttpClientUtils.httpGet(userInfoUrl.replace("ACCESS_TOKEN", accessToken)
-                .replace("OPENID", openId));
+        JSONObject userInfoResult = HttpClientUtils.httpGet(userInfoUrl.replace(StringEnum.ACCESS_TOKEN.getName(), accessToken)
+                .replace(StringEnum.OPENID.getName(), openId));
         if(userInfoResult == null){
             log.info("getWxUserInfo fail");
             return null;
         }
-        if (userInfoResult.getInteger("errcode") != null) {
-            log.error("getWxUserInfo fail:" + userInfoResult.getString("errmsg") + ", openId:" + openId);
+        if (userInfoResult.getInteger(StringEnum.ERR_CODE.getName()) != null) {
+            log.error("getWxUserInfo fail:{}, openId:{}", userInfoResult.getString(StringEnum.ERR_MSG.getName()), openId);
             return null;
         }
         //返回成功
@@ -141,7 +144,7 @@ public class ApiServiceImpl implements IApiService {
     public JSONObject createTicket(String ticket, String appId) {
         String url = WechatApi.QR_CODE_TICKET.getUrl();
         String accessToken = mpService.getAccessToken(appId);
-        return HttpClientUtils.httpPostJson(url.replace("TOKEN", accessToken), ticket);
+        return HttpClientUtils.httpPostJson(url.replace(StringEnum.ACCESS_TOKEN.getName(), accessToken), ticket);
     }
 
     /**
@@ -154,8 +157,8 @@ public class ApiServiceImpl implements IApiService {
     public JSONObject wxLoginGetAccessToken(String code, String appId) {
         WxMp mp = mpService.getWxMp(appId);
         String url = WechatApi.GET_ACCESS_TOKEN.getUrl();
-        String temp = url.replace("APPID", mp.getWebAppId())
-                .replace("SECRET", mp.getWebAppSecret()).replace("CODE", code);
+        String temp = url.replace(StringEnum.APP_ID.getName(), mp.getWebAppId())
+                .replace(StringEnum.SECRET.getName(), mp.getWebAppSecret()).replace(StringEnum.CODE.getName(), code);
         JSONObject jsonObject = HttpClientUtils.httpGet(temp);
         if(jsonObject == null){
             log.error("Wechat Get Oauth AccessToken Fail");
@@ -173,7 +176,7 @@ public class ApiServiceImpl implements IApiService {
     @Override
     public JSONObject createMenu(String menuData, String appId) {
         String accessToken = mpService.getAccessToken(appId);
-        String createMenuUrl = WechatApi.CREATE_MENU.getUrl().replace("ACCESS_TOKEN", accessToken);
+        String createMenuUrl = WechatApi.CREATE_MENU.getUrl().replace(StringEnum.ACCESS_TOKEN.getName(), accessToken);
         return HttpClientUtils.httpPostJson(createMenuUrl, menuData);
     }
 
@@ -186,13 +189,15 @@ public class ApiServiceImpl implements IApiService {
     public boolean refreshAccessToken(WxMp mp) {
         String appId = mp.getAppId();
         String appSecret = mp.getAppSecret();
-        String accessTokenUrl = WechatApi.TOKEN.getUrl().replace("APPID", appId).replace("APPSECRET", appSecret);
+        String accessTokenUrl = WechatApi.TOKEN.getUrl()
+                .replace(StringEnum.APP_ID.getName(), appId)
+                .replace(StringEnum.APP_SECRET.getName(), appSecret);
         JSONObject accessToken = HttpClientUtils.httpGet(accessTokenUrl);
         if(accessToken == null){
             return false;
         }
-        String newAccessToken = accessToken.getString("access_token");
-        Long newExpiresIn = Long.valueOf(accessToken.getInteger("expires_in"));
+        String newAccessToken = accessToken.getString(StringEnum.ACCESS_TOKEN.getName());
+        Long newExpiresIn = Long.valueOf(accessToken.getInteger(StringEnum.EXPIRES_IN.getName()));
         if (newAccessToken != null && newExpiresIn != null) {
             long currentTimestamp = DateUtils.getUnixStamp();
             mp.setAccessToken(newAccessToken);
@@ -200,9 +205,9 @@ public class ApiServiceImpl implements IApiService {
             mpService.updateMp(mp);
             return true;
         } else {
-            String errcode = accessToken.getString("errcode");
-            String errmsg = accessToken.getString("errmsg");
-            log.error("Get AccessToken Fail: Errcode:" + errcode + ", Errmsg:" + errmsg);
+            String errcode = accessToken.getString(StringEnum.ERR_CODE.getName());
+            String errmsg = accessToken.getString(StringEnum.ERR_MSG.getName());
+            log.error("Get AccessToken Fail: Errcode:{}, Errmsg:{}", errcode, errmsg);
             return false;
         }
     }
@@ -217,21 +222,21 @@ public class ApiServiceImpl implements IApiService {
         String appId = mp.getAppId();
         String accessTokenUrl = WechatApi.GET_TICKET.getUrl() + "jsapi";
         String accessToken = mpService.getAccessToken(appId);
-        JSONObject jsApiTicket = HttpClientUtils.httpGet(accessTokenUrl.replace("ACCESS_TOKEN", accessToken));
+        JSONObject jsApiTicket = HttpClientUtils.httpGet(accessTokenUrl.replace(StringEnum.ACCESS_TOKEN.getName(), accessToken));
         if(jsApiTicket == null){
             return false;
         }
-        String newTicket = jsApiTicket.getString("ticket");
-        Long newExpiresIn = Long.valueOf(jsApiTicket.getInteger("expires_in")*1000);
+        String newTicket = jsApiTicket.getString(StringEnum.TICKET.getName());
+        Long newExpiresIn = Long.valueOf(jsApiTicket.getInteger(StringEnum.EXPIRES_IN.getName())*1000);
         if (newTicket != null && newExpiresIn != null) {
             long currentTimestamp = DateUtils.getUnixStamp();
             mp.setJsapiTicket(newTicket);
             mp.setJsapiTicketExpiresIn(currentTimestamp + newExpiresIn);
             mpService.updateMp(mp);
         } else {
-            String errcode = jsApiTicket.getString("errcode");
-            String errmsg = jsApiTicket.getString("errmsg");
-            log.error("Get AccessToken Fail: Errcode:" + errcode + ", Errmsg:" + errmsg);
+            String errcode = jsApiTicket.getString(StringEnum.ERR_CODE.getName());
+            String errmsg = jsApiTicket.getString(StringEnum.ERR_MSG.getName());
+            log.error("Get JsApiTicket Fail: Errcode:{}, Errmsg:{}", errcode, errmsg);
         }
         return false;
     }
@@ -246,21 +251,21 @@ public class ApiServiceImpl implements IApiService {
         String appId = mp.getAppId();
         String url = WechatApi.GET_TICKET.getUrl() + "wx_card";
         String accessToken = mpService.getAccessToken(appId);
-        JSONObject jsonObject = HttpClientUtils.httpGet(url.replace("ACCESS_TOKEN", accessToken));
+        JSONObject jsonObject = HttpClientUtils.httpGet(url.replace(StringEnum.ACCESS_TOKEN.getName(), accessToken));
         if(jsonObject == null){
             return false;
         }
-        String ticket = jsonObject.getString("ticket");
-        Long expiresIn = Long.valueOf(jsonObject.getInteger("expires_in")*1000);
+        String ticket = jsonObject.getString(StringEnum.TICKET.getName());
+        Long expiresIn = Long.valueOf(jsonObject.getInteger(StringEnum.EXPIRES_IN.getName())*1000);
         if (ticket != null && expiresIn != null) {
             long currentTimestamp = DateUtils.getUnixStamp();
             mp.setApiTicket(ticket);
             mp.setApiTicketExpiresIn(currentTimestamp + expiresIn);
             mpService.updateMp(mp);
         } else {
-            String errcode = jsonObject.getString("errcode");
-            String errmsg = jsonObject.getString("errmsg");
-            log.error("Get apiTicket Fail: Errcode:" + errcode + ", Errmsg:" + errmsg);
+            String errcode = jsonObject.getString(StringEnum.ERR_CODE.getName());
+            String errmsg = jsonObject.getString(StringEnum.ERR_MSG.getName());
+            log.error("Get apiTicket Fail: Errcode:{}, Errmsg:{}", errcode, errmsg);
         }
         return false;
     }

@@ -18,7 +18,7 @@ public enum WechatApi {
     USER_INFO("https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN"),
     GET_ACCESS_TOKEN("https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code"),
     AUTHORIZE_URL("https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect"),
-    QR_CODE_TICKET("https://api.weixin.qq.com/card/qrcode/create?access_token=TOKEN");
+    QR_CODE_TICKET("https://api.weixin.qq.com/card/qrcode/create?access_token=ACCESS_TOKEN");
 
     @Setter @Getter private String url;
 

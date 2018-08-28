@@ -60,8 +60,7 @@ public class WxMpServiceImpl implements IWxMpService {
                 currentTimestamp > mp.getExpiresIn()) {
             //更新AccessToken
             if (apiService.refreshAccessToken(mp) == false) {
-                log.error("refreshAccessToken Fail:" + currentTimestamp + "retry again:"
-                        + apiService.refreshAccessToken(mp));
+                log.error("refreshAccessToken Fail:{}, retry again:{}",currentTimestamp, apiService.refreshAccessToken(mp));
             }
         }
         return mp.getAccessToken();
@@ -80,8 +79,7 @@ public class WxMpServiceImpl implements IWxMpService {
                 currentTimestamp > mp.getJsapiTicketExpiresIn()) {
             //更新AccessToken
             if (apiService.refreshJsApiTicket(mp) == false) {
-                log.error("refreshAccessToken Fail:" + currentTimestamp + "retry again:"
-                        + apiService.refreshJsApiTicket(mp));
+                log.error("refreshAccessToken Fail:{}, retry again:{}",currentTimestamp,apiService.refreshJsApiTicket(mp));
             }
         }
         return mp.getJsapiTicket();
@@ -94,8 +92,7 @@ public class WxMpServiceImpl implements IWxMpService {
         if (mp.getApiTicket() == null || mp.getApiTicket() == "" ||
                 currentTimestamp > mp.getApiTicketExpiresIn()) {
             if (apiService.refreshApiTicket(mp) == false) {
-                log.error("refreshApiTicket Fail:" + currentTimestamp + "retry again:"
-                        + apiService.refreshApiTicket(mp));
+                log.error("refreshApiTicket Fail:{},retry again:{}", currentTimestamp, apiService.refreshApiTicket(mp));
             }
         }
         return mp.getApiTicket();

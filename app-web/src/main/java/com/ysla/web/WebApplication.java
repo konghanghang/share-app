@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 注：为了避免扫描路径不一致，请将启动类放在RootPackage 即 com.ysla.web
  * @author konghang
  */
-@DubboComponentScan(basePackages="com.ysla.web.controller")
+@DubboComponentScan(basePackages={"com.ysla.web.controller","com.ysla.web.task"})
 @SpringBootApplication
 public class WebApplication {
 

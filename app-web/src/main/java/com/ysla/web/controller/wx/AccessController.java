@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ysla.api.auto.model.WxMp;
+import com.ysla.api.model.common.StringEnum;
 import com.ysla.api.model.wx.access.CheckVo;
 import com.ysla.api.model.wx.access.MessageType;
 import com.ysla.api.model.wx.resp.RobotArticle;
@@ -46,6 +47,10 @@ public class AccessController {
      */
     @Value("${com.ysla.wechat.appId}")
     private String appId;
+
+    private final String typeText = "100000";
+    private final String typeUrl = "200000";
+    private final String typeArticle = "302000";
 
     @Reference(version = "${dubbo.service.version}",check = false, timeout = 10000)
     private IWxMpService mpService;
@@ -190,12 +195,12 @@ public class AccessController {
                 break;
             case "CLICK":
                 String eventKey = map.get("EventKey");
-                String content = "";
-                if (eventKey.equals("01")) {
+                String content = "", key01 = "key01", key11="11", key21 = "21";
+                if (key01.equals(eventKey)) {
                     content = "01被点击";
-                } else if (eventKey.equals("11")) {
+                } else if (key11.equals(eventKey)) {
                     content = "clickButton被点击";
-                } else if (eventKey.equals("21")) {
+                } else if (key21.equals(eventKey)) {
                     content = "21被点击";
                 }
                 message = wrapBackMessage(toUserName, fromUserName, content);
@@ -288,11 +293,11 @@ public class AccessController {
         String info = oldContent;
         String url = "http://www.tuling123.com/openapi/api?key=" + key + "&info=" + info;
         JSONObject jsonObject = HttpClientUtils.httpGet(url);
-        if ("100000".equals(jsonObject.getString("code"))) {
+        if (typeText.equals(jsonObject.getString(StringEnum.CODE.getName()))) {
             content = jsonObject.getString("text");
-        } else if ("200000".equals(jsonObject.getString("code"))) {
+        } else if (typeUrl.equals(jsonObject.getString(StringEnum.CODE.getName()))) {
             content = jsonObject.getString("text") + "<br>" + jsonObject.getString("url");
-        } else if ("302000".equals(jsonObject.getString("code"))) {
+        } else if (typeArticle.equals(jsonObject.getString(StringEnum.CODE.getName()))) {
             List<RobotArticle> tArticles = JSON.parseArray(jsonObject.getString("list"), RobotArticle.class);
             String str = "";
             for (int i = 0; i < tArticles.size(); i++) {
