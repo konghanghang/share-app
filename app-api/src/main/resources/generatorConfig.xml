@@ -133,5 +133,25 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <!-- m开头的表自用 -->
+        <table tableName="m_menses" domainObjectName="Menses"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="menses_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="m_notice_template" domainObjectName="NoticeTemplate"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="notice_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="m_wx_template" domainObjectName="WxTemplate"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="template_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <!-- m开头的表自用 -->
     </context>
 </generatorConfiguration>

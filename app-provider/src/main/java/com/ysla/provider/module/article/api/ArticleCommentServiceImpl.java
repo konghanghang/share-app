@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.ysla.api.auto.model.ArticleComment;
+import com.ysla.api.model.common.NumEnum;
 import com.ysla.api.model.page.PageModel;
 import com.ysla.api.module.article.IArticleCommentService;
 import com.ysla.provider.module.article.dao.IArticleCommentDao;
@@ -36,7 +37,7 @@ public class ArticleCommentServiceImpl implements IArticleCommentService {
     @Override
     public int addComment(ArticleComment comment) {
         comment.setFloor(0);
-        if("0".equals(comment.getReplayRefId())){
+        if(NumEnum.ZERO.getNum().toString().equals(comment.getReplayRefId())){
             int num = commentDao.getArticleCommentNum(comment.getRefArticleId());
             comment.setFloor(num + 1);
         }

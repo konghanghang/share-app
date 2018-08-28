@@ -31,7 +31,7 @@ import java.util.Map;
  * @author konghang
  */
 @Slf4j
-@RestControllerAdvice(value = {"com.ysla.web.controller.user"})
+@RestControllerAdvice(value = {"com.ysla.web.controller"})
 public class GlobalExceptionHandler {
 
     /**

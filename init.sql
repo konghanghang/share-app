@@ -140,3 +140,44 @@ CREATE TABLE `wx_user` (
   KEY `app_id` (`app_id`),
   KEY `union_id` (`union_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 PACK_KEYS=0 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+--  Table structure for `m_menses`
+-- ----------------------------
+DROP TABLE IF EXISTS `m_menses`;
+CREATE TABLE `m_menses` (
+  `menses_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键Id,自增',
+  `year` varchar(5) DEFAULT NULL COMMENT '年',
+  `month` varchar(5) DEFAULT NULL COMMENT '月份',
+  `open_id` varchar(32) DEFAULT '' COMMENT '微信openId',
+  `last_menses_time` bigint(11) DEFAULT '0' COMMENT '上一次月经时间',
+  `menses_time` bigint(11) DEFAULT '0' COMMENT '预测这一次的时间',
+  `true_menses_time` bigint(11) DEFAULT '0' COMMENT '这一次真正的月经时间',
+  `create_date` bigint(11) DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`menses_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+--  Table structure for `m_notice_template`
+-- ----------------------------
+DROP TABLE IF EXISTS `m_notice_template`;
+CREATE TABLE `m_notice_template` (
+  `notice_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `notice` varchar(512) NOT NULL DEFAULT '',
+  `create_date` bigint(11) NOT NULL,
+  PRIMARY KEY (`notice_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+--  Table structure for `m_wx_template`
+-- ----------------------------
+DROP TABLE IF EXISTS `m_wx_template`;
+CREATE TABLE `m_wx_template` (
+  `template_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `wx_template_id` varchar(50) DEFAULT NULL,
+  `first` varchar(10) DEFAULT NULL,
+  `key_note` varchar(15) DEFAULT NULL,
+  `remark` varchar(50) DEFAULT NULL,
+  `create_date` int(11) DEFAULT NULL,
+  PRIMARY KEY (`template_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;

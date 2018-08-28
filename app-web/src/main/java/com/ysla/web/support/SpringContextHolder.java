@@ -1,7 +1,6 @@
 package com.ysla.web.support;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
@@ -12,12 +11,11 @@ import org.springframework.stereotype.Component;
  * 以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候取出ApplicaitonContext.
  * @author konghang
  */
+@Slf4j
 @Component
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
     private static ApplicationContext applicationContext = null;
-
-    private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
 
     /**
      * 实现ApplicationContextAware接口, 注入Context到静态变量中.
@@ -58,8 +56,8 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
      * 清除SpringContextHolder中的ApplicationContext为Null.
      */
     public static void clearHolder() {
-        if (logger.isDebugEnabled()){
-            logger.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
+        if (log.isDebugEnabled()){
+            log.debug("清除SpringContextHolder中的ApplicationContext:" + applicationContext);
         }
         applicationContext = null;
     }

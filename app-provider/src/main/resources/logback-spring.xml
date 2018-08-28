@@ -94,6 +94,7 @@
 
 	<logger name="java.sql" level="DEBUG" />
 	<logger name="org.springframework" level="INFO" />
+	<!--打印sql-->
 	<logger name="com.ysla.provider.module" level="DEBUG" />
 
 	<!-- root级别 DEBUG -->
