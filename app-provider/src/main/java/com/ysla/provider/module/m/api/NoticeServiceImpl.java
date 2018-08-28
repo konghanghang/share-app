@@ -115,7 +115,9 @@ public class NoticeServiceImpl implements INoticeService {
         String dateStr = DateUtils.timeStampToStr(menses.getMensesTime());
         String title = "定时任务执行:" + dateStr;
         String content = "定时任务执行,但是没有发送,还有:" + intervalDays + "天";
-        if(intervalDays == NumEnum.TWO.getNum() || intervalDays == NumEnum.FIVE.getNum() || intervalDays == NumEnum.SEVEN.getNum()){
+        if(intervalDays == NumEnum.TWO.getNum()
+                || intervalDays == NumEnum.FIVE.getNum()
+                || intervalDays == NumEnum.SEVEN.getNum()){
             List<NoticeTemplate> list = noticeDao.allTemplate();
             String notice = list.get(StringUtils.generateRandomNum(list.size())).getNotice();
             WxTemplate msgTemplate = noticeDao.selectByWx("IFAq7xEzC0l5C9f1fYs-7A15VEk5nMhSHwgRxaUOFs0");

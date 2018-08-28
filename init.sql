@@ -181,3 +181,26 @@ CREATE TABLE `m_wx_template` (
   `create_date` int(11) DEFAULT NULL,
   PRIMARY KEY (`template_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+--  Table structure for `s_ip_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `s_ip_info`;
+CREATE TABLE `s_ip_info` (
+  `ip` bigint(20) NOT NULL COMMENT 'IP地址',
+  `area_id` varchar(20) DEFAULT '' COMMENT '地区ID',
+  `area` varchar(20) DEFAULT '' COMMENT '地区',
+  `country_id` varchar(20) DEFAULT '' COMMENT '国家编码',
+  `country` varchar(20) DEFAULT '' COMMENT '国家名',
+  `region_id` varchar(20) DEFAULT '' COMMENT '省编码',
+  `region` varchar(20) DEFAULT '' COMMENT '省份',
+  `city_id` varchar(20) DEFAULT '' COMMENT '城市ID',
+  `city` varchar(20) DEFAULT '' COMMENT '城市名',
+  `county_id` varchar(20) DEFAULT '' COMMENT '区(县)ID',
+  `county` varchar(20) DEFAULT '' COMMENT '区(县)',
+  `isp_id` varchar(20) DEFAULT '' COMMENT '服务商',
+  `isp` varchar(20) DEFAULT '' COMMENT '服务商',
+  `create_date` bigint(11) DEFAULT '0' COMMENT 'WHO字段',
+  `last_update_date` bigint(11) DEFAULT '0' COMMENT 'WHO字段',
+  PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;

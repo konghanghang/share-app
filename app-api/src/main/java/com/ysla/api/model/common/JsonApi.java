@@ -9,8 +9,8 @@ import lombok.Setter;
  */
 public class JsonApi<T> {
 
-    private static final int OK = 1;
-    private static final int FAIL = 0;
+    private static final int OK = 0;
+    private static final int FAIL = 1;
 
     @Setter@Getter private int code = OK;
     @Setter@Getter private T data;

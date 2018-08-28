@@ -92,4 +92,14 @@ public class ArticleServiceImpl implements IArticleService {
     public List<JSONObject> chosen() {
         return articleDao.chosen();
     }
+
+    /**
+     * 更新文章统计数据
+     * @param article
+     * @return
+     */
+    @Override
+    public int updateStatistics(Article article) {
+        return articleDao.updateStatistics(article);
+    }
 }

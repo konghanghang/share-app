@@ -55,4 +55,11 @@ public interface IArticleService {
      */
     List<JSONObject> chosen();
 
+    /**
+     * 更新文章统计数据
+     * @param article
+     * @return
+     */
+    int updateStatistics(Article article);
+
 }

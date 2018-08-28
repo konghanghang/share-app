@@ -15,6 +15,8 @@ import com.ysla.api.module.user.IUserService;
 import com.ysla.api.utils.http.IpUtils;
 import com.ysla.utils.date.DateUtils;
 import com.ysla.utils.string.StringUtils;
+import com.ysla.web.annotation.Articles;
+import com.ysla.web.annotation.Ip;
 import com.ysla.web.config.shiro.JwtUtil;
 import com.ysla.web.vo.ArticleVO;
 import io.swagger.annotations.*;
@@ -42,7 +44,7 @@ public class ArticleController {
     @Reference(version = "${dubbo.service.version}", check = false, timeout = 10000)
     private IUserService userService;
 
-    //@IpStatisticsAop
+    @Ip
     @ApiOperation(value="添加文章", httpMethod = "POST", notes="所有字段均不能为空,且标题不能超过100字")
     @ApiImplicitParam(name = "articleVO", value = "文章详细实体articleVO", required = true)
     @ApiResponse(code = 200, message = "success", response = JsonApi.class)
@@ -69,7 +71,7 @@ public class ArticleController {
         }
     }
 
-    //@ArticleAop
+    @Articles(view = 1)
     @ApiOperation(value="获取某一篇文章", notes="根据文章ID获取文章")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "String")
     @GetMapping(value = "/{articleId}", produces="application/json;charset=UTF-8")

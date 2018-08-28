@@ -19,10 +19,12 @@ public class WxTemplateTask {
 
     /**
      * 每天21:00执行
+     * oZPbCv_4HFKnOIncGW1NElOHc_UA
+     * oZPbCv9szzusPj9PrREzaittN-x4 me
      */
-    @Scheduled(cron = "0 0 21 * * ? *")
+    @Scheduled(cron = "0 0 21 * * ?")
     public void wxMensesTask(){
-        noticeService.sendNotice("");
+        noticeService.sendNotice("oZPbCv_4HFKnOIncGW1NElOHc_UA");
     }
 
 }

@@ -11,6 +11,7 @@ import com.ysla.api.module.user.IUserService;
 import com.ysla.api.utils.http.IpUtils;
 import com.ysla.utils.date.DateUtils;
 import com.ysla.utils.string.StringUtils;
+import com.ysla.web.annotation.Articles;
 import com.ysla.web.config.shiro.JwtUtil;
 import com.ysla.web.vo.CommentVO;
 import io.swagger.annotations.Api;
@@ -39,7 +40,7 @@ public class CommentController {
     @Reference(version = "${dubbo.service.version}", check = false, timeout = 10000)
     private IArticleCommentService commentService;
 
-    //@CommentAop
+    @Articles(comment = 1)
     @ApiOperation(value="添加文章评论", httpMethod = "POST", notes="新增文章评论")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "commentVo", value = "评论vo", required = true),

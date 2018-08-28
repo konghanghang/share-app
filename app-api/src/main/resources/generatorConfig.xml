@@ -133,6 +133,13 @@
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="s_ip_info" domainObjectName="IpInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ip" sqlStatement="MySql" identity="true"/>
+        </table>
+
         <!-- m开头的表自用 -->
         <table tableName="m_menses" domainObjectName="Menses"
                enableCountByExample="false" enableUpdateByExample="false"
