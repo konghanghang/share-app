@@ -3,6 +3,9 @@ package com.ysla.api.model.common;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * 统一返回实体
  * @author konghang
@@ -15,6 +18,8 @@ public class JsonApi<T> {
     @Setter@Getter private int code = OK;
     @Setter@Getter private T data;
     @Setter@Getter private String message = "请求成功！";
+    @Setter@Getter private String time = LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     public JsonApi() {}
 

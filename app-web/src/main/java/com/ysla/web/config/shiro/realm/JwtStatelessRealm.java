@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 @Slf4j
 public class JwtStatelessRealm extends AuthorizingRealm {
 
-    @Reference(version = "${dubbo.service.version}")
+    @Reference(version = "${dubbo.service.version}",check = false, timeout = 10000)
     private IUserService userService;
 
     /**
