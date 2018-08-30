@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>error</title>
+</head>
+<body>
+<h2>服务异常，请稍后再试。</h2>
+<div th:object="${error}">
+    <h3 th:text="*{'发生时间：'+time}"></h3>
+    <h3 th:text="*{'问题类型：'+data}"></h3>
+    <h3 th:text="*{'堆栈信息：'+message}"></h3>
+</div>
+</body>
+</html>

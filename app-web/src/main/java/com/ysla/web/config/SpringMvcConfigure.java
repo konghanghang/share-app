@@ -74,4 +74,13 @@ public class SpringMvcConfigure implements WebMvcConfigurer {
         converters.add(fastJsonHttpMessageConverter);
     }
 
+    /**
+     * 配置视图处理器
+     * @param registry
+     */
+    /*@Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.viewResolver(thymeleafViewResolver());
+    }*/
+
 }

@@ -45,9 +45,8 @@ public class GlobalExceptionHandler implements ErrorController {
      * 情况1：若预期返回类型为text/html,s则返回错误信息页(View).
      */
     @RequestMapping(produces = MediaType.TEXT_HTML_VALUE)
-    @ResponseBody
     public ModelAndView errorHtml(HttpServletRequest request) {
-        return new ModelAndView(DEFAULT_ERROR_VIEW, "errorInfo", errorInfoBuilder.getErrorInfo(request));
+        return new ModelAndView(DEFAULT_ERROR_VIEW, "error", errorInfoBuilder.getErrorInfo(request));
     }
 
     /**
