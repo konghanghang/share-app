@@ -56,7 +56,7 @@ public class WxMpServiceImpl implements IWxMpService {
     public String getAccessToken(String appId) {
         WxMp mp = getWxMp(appId);
         long currentTimestamp = DateUtils.getUnixStamp();
-        if (mp.getAccessToken() == null || mp.getAccessToken() == "" ||
+        if (mp.getAccessToken() == null || "".equals(mp.getAccessToken()) ||
                 currentTimestamp > mp.getExpiresIn()) {
             //更新AccessToken
             if (apiService.refreshAccessToken(mp) == false) {
@@ -75,7 +75,7 @@ public class WxMpServiceImpl implements IWxMpService {
     public String getJsApiTicket(String appId) {
         WxMp mp = getWxMp(appId);
         long currentTimestamp = DateUtils.getUnixStamp();
-        if (mp.getJsapiTicket() == null || mp.getJsapiTicket() == "" ||
+        if (mp.getJsapiTicket() == null || "".equals(mp.getJsapiTicket()) ||
                 currentTimestamp > mp.getJsapiTicketExpiresIn()) {
             //更新AccessToken
             if (apiService.refreshJsApiTicket(mp) == false) {
@@ -89,7 +89,7 @@ public class WxMpServiceImpl implements IWxMpService {
     public String getApiTicket(String appId) {
         WxMp mp = getWxMp(appId);
         long currentTimestamp = DateUtils.getUnixStamp();
-        if (mp.getApiTicket() == null || mp.getApiTicket() == "" ||
+        if (mp.getApiTicket() == null || "".equals(mp.getApiTicket()) ||
                 currentTimestamp > mp.getApiTicketExpiresIn()) {
             if (apiService.refreshApiTicket(mp) == false) {
                 log.error("refreshApiTicket Fail:{},retry again:{}", currentTimestamp, apiService.refreshApiTicket(mp));

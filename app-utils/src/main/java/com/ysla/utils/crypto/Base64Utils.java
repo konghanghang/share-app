@@ -3,6 +3,7 @@ package com.ysla.utils.crypto;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class Base64Utils {
 
@@ -47,7 +48,7 @@ public class Base64Utils {
             base64Str = base64Str + "====".substring(mod4);
         }*/
         byte[] str = Base64.decodeBase64(base64Str);
-        return new String(str);
+        return new String(str, StandardCharsets.UTF_8);
     }
 
     /**
@@ -58,7 +59,7 @@ public class Base64Utils {
     public static byte[] base64FileToByte(String base64Data) {
         if (base64Data != null && (!base64Data.equals("undefined"))) {
             String base64Encode = base64Data.substring(base64Data.indexOf(',') + 1);
-            if (base64Encode != null || base64Encode != "") {
+            if (base64Encode != null || !"".equals(base64Encode)) {
                 if (Base64.isBase64(base64Encode) == true) {
                     byte[] imageByte = Base64.decodeBase64(base64Encode);
                     return imageByte;

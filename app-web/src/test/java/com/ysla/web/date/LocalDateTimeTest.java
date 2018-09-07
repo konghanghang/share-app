@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.security.SecureRandom;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
@@ -128,7 +129,7 @@ public class LocalDateTimeTest {
      * localDateTime localDate localTime
      */
     @Test
-    public void LocalDateTime1(){
+    public void localDateTime1(){
         LocalDateTime localDateTime = LocalDateTime.now();
         System.out.println(localDateTime);
 

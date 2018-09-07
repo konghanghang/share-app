@@ -7,6 +7,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -75,7 +76,7 @@ public class CryptoUtils {
      * @return
      * @throws Exception
      */
-    public static byte[] HmacSHA1Encrypt(String encryptText, String encryptKey) {
+    public static byte[] hmacSHA1Encrypt(String encryptText, String encryptKey) {
         try {
             byte[] data = encryptKey.getBytes(ENCODING);
             //根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称
@@ -164,7 +165,7 @@ public class CryptoUtils {
 
 
     public static String decriptor(MessageDigest digest, String decript) {
-        digest.update(decript.getBytes());
+        digest.update(decript.getBytes(StandardCharsets.UTF_8));
         byte messageDigest[] = digest.digest();
         // Create Hex String
         StringBuffer hexString = new StringBuffer();
@@ -216,7 +217,7 @@ public class CryptoUtils {
     public static byte[] encryptAES(String content, String password) {
         try {
             KeyGenerator kgen = KeyGenerator.getInstance("AES");
-            kgen.init(128, new SecureRandom(password.getBytes()));
+            kgen.init(128, new SecureRandom(password.getBytes(StandardCharsets.UTF_8)));
             SecretKey secretKey = kgen.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
@@ -251,7 +252,7 @@ public class CryptoUtils {
     public static byte[] decryptAES(byte[] content, String password) {
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-            keyGenerator.init(128, new SecureRandom(password.getBytes()));
+            keyGenerator.init(128, new SecureRandom(password.getBytes(StandardCharsets.UTF_8)));
             SecretKey secretKey = keyGenerator.generateKey();
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");

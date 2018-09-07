@@ -3,11 +3,9 @@ package com.ysla.utils.string;
 
 import com.ysla.utils.date.DateUtils;
 
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * @author konghang
@@ -37,8 +35,9 @@ public class StringUtils {
         String seekChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         int seekLength = seekChars.length();
         StringBuilder sb = new StringBuilder();
+        SecureRandom random = new SecureRandom();
         for (int i = 0; i < length; i++) {
-            sb.append(seekChars.charAt((int) (Math.random() * seekLength)));
+            sb.append(seekChars.charAt(random.nextInt(seekLength)));
         }
         return sb.toString();
     }
@@ -60,8 +59,9 @@ public class StringUtils {
         String seekChars = "0123456789";
         int seekLength = seekChars.length();
         StringBuilder sb = new StringBuilder();
+        SecureRandom random = new SecureRandom();
         for (int i = 0; i < length; i++) {
-            sb.append(seekChars.charAt((int) (Math.random() * seekLength)));
+            sb.append(seekChars.charAt(random.nextInt(seekLength)));
         }
         return sb.toString();
     }
@@ -115,7 +115,8 @@ public class StringUtils {
      * @return
      */
     public static Integer generateRandomNum(int max){
-        int num=(int)(Math.random() * max);
+        SecureRandom secureRandom = new SecureRandom();
+        int num = secureRandom.nextInt(max);
         return num;
     }
 

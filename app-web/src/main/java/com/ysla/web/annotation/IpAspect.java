@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class IpAspect {
 
-    private final String localIp = "0:0:0:0:0:0:0:1";
+    private static final String localIp = "0:0:0:0:0:0:0:1";
 
     @Reference(version = "${dubbo.service.version}", check = false, timeout = 10000)
     private IpInfoService ipInfoService;

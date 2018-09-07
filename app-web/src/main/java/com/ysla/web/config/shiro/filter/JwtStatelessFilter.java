@@ -20,9 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class JwtStatelessFilter extends RestPathMatchingFilter {
 
-    private final String OPTIONS = "options";
-    private final String NULL = "null";
-    private final String AUTHORIZATION = "Authorization";
+    private static final String OPTIONS = "options";
+    private static final String NULL = "null";
+    private static final String AUTHORIZATION = "Authorization";
 
     /**
      * isAccessAllowed 和下边的 onAccessDenied 在 RestPathMatchingFilter 中的 onPreHandle 方法中被调用

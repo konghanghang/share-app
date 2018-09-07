@@ -14,8 +14,8 @@ import org.dom4j.io.SAXReader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,11 +72,11 @@ public class XmlUtils {
      * 将XML数据转换成map数据
      * @param xmlBuffer
      * @return
-     * @throws UnsupportedEncodingException
      * @throws DocumentException
      */
-    public static Map<String, String> xml2Map(StringBuffer xmlBuffer) throws UnsupportedEncodingException, DocumentException {
-        return xml2Map(new String(xmlBuffer.toString().getBytes(), "utf-8"));
+    public static Map<String, String> xml2Map(StringBuffer xmlBuffer) throws DocumentException {
+        return xml2Map(new String(xmlBuffer.toString().getBytes(StandardCharsets.UTF_8),
+                StandardCharsets.UTF_8));
     }
 
     public static Map<String, String> xml2Map(String xml) throws DocumentException {
@@ -111,11 +111,11 @@ public class XmlUtils {
      * xml转json对象
      * @param xmlBuffer
      * @return
-     * @throws UnsupportedEncodingException
      * @throws DocumentException
      */
-    public static JSONObject xml2Json(StringBuffer xmlBuffer) throws UnsupportedEncodingException, DocumentException {
-        return xml2Json(new String(xmlBuffer.toString().getBytes(), "utf-8"));
+    public static JSONObject xml2Json(StringBuffer xmlBuffer) throws DocumentException {
+        return xml2Json(new String(xmlBuffer.toString().getBytes(StandardCharsets.UTF_8),
+                StandardCharsets.UTF_8));
     }
 
     public static JSONObject xml2Json(String xml) throws DocumentException {

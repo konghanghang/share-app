@@ -62,8 +62,12 @@ public class BaseException extends RuntimeException {
             if (errorCode != null) {
                 printWriter.println("\t" + errorCode + ":" + errorCode.getClass().getName());
             }
-            for (String key : properties.keySet()) {
-                printWriter.println("\t" + key + "=[" + properties.get(key) + "]");
+
+            StringBuilder sb = new StringBuilder();
+            for (Map.Entry<String,Object> entry : properties.entrySet()) {
+                sb.append("\t").append(entry.getKey()).append("=[").append(entry.getValue()).append("]");
+                printWriter.println(sb.toString());
+                sb.delete(0,sb.length());
             }
             printWriter.println("\t-------------------------------");
             StackTraceElement[] trace = getStackTrace();

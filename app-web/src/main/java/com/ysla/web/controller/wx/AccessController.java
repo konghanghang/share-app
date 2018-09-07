@@ -14,6 +14,7 @@ import com.ysla.api.utils.http.HttpClientUtils;
 import com.ysla.utils.crypto.CryptoUtils;
 import com.ysla.utils.xml.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -114,42 +115,45 @@ public class AccessController {
      */
     private String processRequest(HttpServletRequest request) {
         String message = "异常",content = "";
+        Map<String, String> map = null;
         try {
-            Map<String, String> map = XmlUtils.xml2map(request.getInputStream());
-            String fromUserName = map.get("FromUserName");
-            log.trace("用户的openid：" + fromUserName);
-            //oWda8wvOyn52E_tvOBrhHhpXP5rg kh,oWda8wg7tX9ZFKnsChHuStz8jdTM ml,oWda8wob0R3kEnzYbGgRdBrmf9sE sj
-            String toUserName = map.get("ToUserName");
-            String msgType = map.get("MsgType");
-            // 按照事件类型(msgType)来判断
-            switch (msgType){
-                case "text":
-                    String oldContent = map.get("Content");
-                    message = processText(oldContent,toUserName,fromUserName);
-                    break;
-                //event事件推送
-                case "event":
-                    message = processEvent(map, toUserName, fromUserName);
-                    break;
-                case "image":
-                    content = "您发送的是图片消息";
-                    message = wrapBackMessage(toUserName, fromUserName, content);
-                    break;
-                case "video":
-                    content = "您发送的是视频消息";
-                    message = wrapBackMessage(toUserName, fromUserName, content);
-                    break;
-                case "link":
-                    content = "您发送的是链接消息";
-                    message = wrapBackMessage(toUserName, fromUserName, content);
-                    break;
-                default:
-                    content = "无法判断您的消息类型,无法处理";
-                    message = wrapBackMessage(toUserName, fromUserName, content);
-                    break;
-            }
-        } catch (Exception e) {
+            map = XmlUtils.xml2map(request.getInputStream());
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        String fromUserName = map.get("FromUserName");
+        log.trace("用户的openid：" + fromUserName);
+        //oWda8wvOyn52E_tvOBrhHhpXP5rg kh,oWda8wg7tX9ZFKnsChHuStz8jdTM ml,oWda8wob0R3kEnzYbGgRdBrmf9sE sj
+        String toUserName = map.get("ToUserName");
+        String msgType = map.get("MsgType");
+        // 按照事件类型(msgType)来判断
+        switch (msgType){
+            case "text":
+                String oldContent = map.get("Content");
+                message = processText(oldContent,toUserName,fromUserName);
+                break;
+            //event事件推送
+            case "event":
+                message = processEvent(map, toUserName, fromUserName);
+                break;
+            case "image":
+                content = "您发送的是图片消息";
+                message = wrapBackMessage(toUserName, fromUserName, content);
+                break;
+            case "video":
+                content = "您发送的是视频消息";
+                message = wrapBackMessage(toUserName, fromUserName, content);
+                break;
+            case "link":
+                content = "您发送的是链接消息";
+                message = wrapBackMessage(toUserName, fromUserName, content);
+                break;
+            default:
+                content = "无法判断您的消息类型,无法处理";
+                message = wrapBackMessage(toUserName, fromUserName, content);
+                break;
         }
         return message;
     }
@@ -189,6 +193,7 @@ public class AccessController {
     private String processEvent(Map<String, String> map, String toUserName, String fromUserName){
         String message = "";
         String eventType = map.get("Event");
+        String cardId = "";
         switch (eventType){
             case "subscribe":
                 message = wrapBackMessage(toUserName, fromUserName, subscribe());
@@ -218,7 +223,7 @@ public class AccessController {
             case "user_pay_from_pay_cell":
                 // 卡券买单后的推送事件
                 // 卡券ID
-                String cardId = map.get("CardId");
+                cardId = map.get("CardId");
                 // 卡券Code码
                 String userCardCode = map.get("UserCardCode");
                 break;
@@ -241,6 +246,8 @@ public class AccessController {
                 break;
             case "card_merchant_check_result":
                 //子商户审核时间
+                break;
+            default:
                 break;
         }
         return message;
@@ -299,11 +306,16 @@ public class AccessController {
             content = jsonObject.getString("text") + "<br>" + jsonObject.getString("url");
         } else if (typeArticle.equals(jsonObject.getString(StringEnum.CODE.getName()))) {
             List<RobotArticle> tArticles = JSON.parseArray(jsonObject.getString("list"), RobotArticle.class);
-            String str = "";
+            StringBuilder str = new StringBuilder();
             for (int i = 0; i < tArticles.size(); i++) {
-                str += i + 1 + "、<a href=\"" + tArticles.get(i).getDetailurl() + "\">" + tArticles.get(i).getArticle() + "</a>   -" + tArticles.get(i).getSource() + "\n\n";
+                str.append(i).append(1).append("、<a href=\"")
+                   .append(tArticles.get(i).getDetailurl())
+                   .append("\"")
+                   .append(tArticles.get(i).getArticle())
+                   .append(tArticles.get(i).getSource())
+                   .append("\n\n");
             }
-            content = jsonObject.getString("text") + ":\n\n" + str;
+            content = jsonObject.getString("text") + ":\n\n" + str.toString();
         } else {
             content = "对不起，你说的话真是太高深了……";
         }
