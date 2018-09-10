@@ -2,7 +2,6 @@ package com.ysla.utils.crypto;
 
 import org.apache.commons.codec.binary.Base64;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 public class Base64Utils {
@@ -13,13 +12,8 @@ public class Base64Utils {
      * @return
      */
     public static String safeUrlEncode(String url){
-        try {
-            byte[] result = url.getBytes("UTF-8");
-            return safeUrlEncode(result);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return null;
+        byte[] result = url.getBytes(StandardCharsets.UTF_8);
+        return safeUrlEncode(result);
     }
 
     /**

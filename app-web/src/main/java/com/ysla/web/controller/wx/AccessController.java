@@ -14,7 +14,9 @@ import com.ysla.api.utils.http.HttpClientUtils;
 import com.ysla.utils.crypto.CryptoUtils;
 import com.ysla.utils.xml.XmlUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 接入微信controller
@@ -53,6 +55,9 @@ public class AccessController {
     private final String typeUrl = "200000";
     private final String typeArticle = "302000";
 
+    private static final String KH = "oWda8wvOyn52E_tvOBrhHhpXP5rg";
+    private static final String ML = "oWda8wg7tX9ZFKnsChHuStz8jdTM";
+
     @Reference(version = "${dubbo.service.version}",check = false, timeout = 10000)
     private IWxMpService mpService;
 
@@ -63,10 +68,13 @@ public class AccessController {
      * @throws Exception
      */
     @GetMapping
-    public void sign(CheckVo checkVo, HttpServletResponse response) throws Exception {
-        PrintWriter out = response.getWriter();
-        if (checkSignature(checkVo.getSignature(), checkVo.getTimestamp(), checkVo.getNonce())) {
-            out.print(checkVo.getEchostr());
+    public void sign(CheckVo checkVo, HttpServletResponse response) {
+        try (PrintWriter out = response.getWriter()) {
+            if (checkSignature(checkVo.getSignature(), checkVo.getTimestamp(), checkVo.getNonce())) {
+                out.print(checkVo.getEchostr());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -77,9 +85,9 @@ public class AccessController {
      */
     @PostMapping
     public void process(HttpServletRequest request, HttpServletResponse response) {
-        response.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         try(PrintWriter out = response.getWriter()) {
-            request.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding(StandardCharsets.UTF_8.name());
             String message = processRequest(request);
             out.print(message);
         } catch (IOException e) {
@@ -115,28 +123,30 @@ public class AccessController {
      */
     private String processRequest(HttpServletRequest request) {
         String message = "异常",content = "";
-        Map<String, String> map = null;
+        JSONObject json = null;
         try {
-            map = XmlUtils.xml2map(request.getInputStream());
+            SAXReader reader = new SAXReader();
+            Document document = reader.read(request.getInputStream());
+            json = XmlUtils.xml2Fastjson(document);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (DocumentException e) {
             e.printStackTrace();
         }
-        String fromUserName = map.get("FromUserName");
+        String fromUserName = json.getString("FromUserName");
         log.trace("用户的openid：" + fromUserName);
         //oWda8wvOyn52E_tvOBrhHhpXP5rg kh,oWda8wg7tX9ZFKnsChHuStz8jdTM ml,oWda8wob0R3kEnzYbGgRdBrmf9sE sj
-        String toUserName = map.get("ToUserName");
-        String msgType = map.get("MsgType");
+        String toUserName = json.getString("ToUserName");
+        String msgType = json.getString("MsgType");
         // 按照事件类型(msgType)来判断
         switch (msgType){
             case "text":
-                String oldContent = map.get("Content");
+                String oldContent = json.getString("Content");
                 message = processText(oldContent,toUserName,fromUserName);
                 break;
             //event事件推送
             case "event":
-                message = processEvent(map, toUserName, fromUserName);
+                message = processEvent(json, toUserName, fromUserName);
                 break;
             case "image":
                 content = "您发送的是图片消息";
@@ -166,10 +176,9 @@ public class AccessController {
      * @return
      */
     private String processText(String oldContent, String toUserName, String fromUserName){
-        String message = "error",ML = "ml";
-        if (ML.equals(oldContent)){
-            if("oWda8wvOyn52E_tvOBrhHhpXP5rg".equals(fromUserName)
-                    || "oWda8wg7tX9ZFKnsChHuStz8jdTM".equals(fromUserName)){
+        String message = "error",mlCode = "ml";
+        if (mlCode.equals(oldContent)){
+            if(KH.equals(fromUserName) || ML.equals(fromUserName)){
                 //mensesService.addMenses("oZPbCv_4HFKnOIncGW1NElOHc_UA");
                 message = wrapBackMessage(toUserName, fromUserName, "添加成功!");
             }else {
@@ -185,21 +194,21 @@ public class AccessController {
 
     /**
      * event事件处理
-     * @param map
+     * @param json
      * @param toUserName
      * @param fromUserName
      * @return
      */
-    private String processEvent(Map<String, String> map, String toUserName, String fromUserName){
+    private String processEvent(JSONObject json, String toUserName, String fromUserName){
         String message = "";
-        String eventType = map.get("Event");
+        String eventType = json.getString("Event");
         String cardId = "";
         switch (eventType){
             case "subscribe":
                 message = wrapBackMessage(toUserName, fromUserName, subscribe());
                 break;
             case "CLICK":
-                String eventKey = map.get("EventKey");
+                String eventKey = json.getString("EventKey");
                 String content = "", key01 = "key01", key11="11", key21 = "21";
                 if (key01.equals(eventKey)) {
                     content = "01被点击";
@@ -213,27 +222,27 @@ public class AccessController {
             case "poi_check_notify":
                 // 创建门店后微信的推送事件------成功与否
                 // 门店id
-                String poi = map.get("PoiId");
+                String poi = json.getString("PoiId");
                 // 审核结果
-                String result = map.get("Result");
+                String result = json.getString("Result");
                 // 成功的通知信息，或审核失败的驳回理由
-                String msg = map.get("Msg");
+                String msg = json.getString("Msg");
                 log.trace("门店id：" + poi + "\n审核结果：" + result + "\n消息：" + msg);
                 break;
             case "user_pay_from_pay_cell":
                 // 卡券买单后的推送事件
                 // 卡券ID
-                cardId = map.get("CardId");
+                cardId = json.getString("CardId");
                 // 卡券Code码
-                String userCardCode = map.get("UserCardCode");
+                String userCardCode = json.getString("UserCardCode");
                 break;
             case "card_pass_check":
                 // 卡券未通过审核
-                cardId = map.get("CardId");
+                cardId = json.getString("CardId");
                 break;
             case "user_get_card":
                 // 用户领取卡券
-                cardId = map.get("CardId");
+                cardId = json.getString("CardId");
                 break;
             case "user_del_card":
                 // 用户删除卡券

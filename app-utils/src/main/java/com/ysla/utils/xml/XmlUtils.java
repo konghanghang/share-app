@@ -10,15 +10,10 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * XML通用处理类
@@ -67,70 +62,40 @@ public class XmlUtils {
         return xstream.toXML(object);
     }
 
-
     /**
-     * 将XML数据转换成map数据
+     * xml转fastjson对象
      * @param xmlBuffer
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> xml2Map(StringBuffer xmlBuffer) throws DocumentException {
-        return xml2Map(new String(xmlBuffer.toString().getBytes(StandardCharsets.UTF_8),
+    public static JSONObject xml2Fastjson(StringBuffer xmlBuffer) throws DocumentException {
+        return xml2Fastjson(new String(xmlBuffer.toString().getBytes(StandardCharsets.UTF_8),
                 StandardCharsets.UTF_8));
-    }
-
-    public static Map<String, String> xml2Map(String xml) throws DocumentException {
-        Document document = DocumentHelper.parseText(xml);
-        return xml2Map(document);
-
-    }
-
-    public static Map<String, String> xml2Map(Document xmlDoc){
-        Map<String, String> map = new HashMap<String, String>();
-        Element root = xmlDoc.getRootElement();
-        List<Element> elementList = root.elements();
-        for (Element e : elementList)
-            map.put(e.getName(), e.getText());
-        return map;
-    }
-
-    public static Map<String,String> xml2map(InputStream inputStream) throws IOException, DocumentException {
-        Map<String,String> map = new HashMap<>(16);
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(inputStream);
-        Element root = document.getRootElement();
-        List<Element> list = root.elements();
-        for(Element e:list){
-            map.put(e.getName(), e.getText());
-        }
-        inputStream.close();
-        return map;
     }
 
     /**
-     * xml转json对象
-     * @param xmlBuffer
+     * xml字符串转fastjson对象
+     * @param xml
      * @return
      * @throws DocumentException
      */
-    public static JSONObject xml2Json(StringBuffer xmlBuffer) throws DocumentException {
-        return xml2Json(new String(xmlBuffer.toString().getBytes(StandardCharsets.UTF_8),
-                StandardCharsets.UTF_8));
-    }
-
-    public static JSONObject xml2Json(String xml) throws DocumentException {
+    public static JSONObject xml2Fastjson(String xml) throws DocumentException {
         Document document = DocumentHelper.parseText(xml);
-        return xml2Json(document);
+        return xml2Fastjson(document);
     }
 
-    public static JSONObject xml2Json(Document xmlDoc) {
+    /**
+     * document对象转fastjson对象
+     * @param document
+     * @return
+     */
+    public static JSONObject xml2Fastjson(Document document) {
         JSONObject jsonObject = new JSONObject();
-        Element root = xmlDoc.getRootElement();
+        Element root = document.getRootElement();
         List<Element> elementList = root.elements();
         for (Element element : elementList){
             jsonObject.put(element.getName(), element.getText());
         }
-
         return jsonObject;
     }
 

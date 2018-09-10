@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
  */
 public class RegexUtils {
 
-    private static Pattern PHONE_NUM_PATTERN = Pattern.compile("^((13[0-9])|(14[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$");
+    private static Pattern PHONE_NUM_PATTERN = Pattern
+            .compile("^((13[0-9])|(14[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$");
 
     /**
      * 是否是电话号码
