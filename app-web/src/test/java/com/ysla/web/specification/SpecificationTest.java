@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * 规格模式测试
  * https://blog.csdn.net/weiwangchao_/article/details/7892314
+ * https://mp.weixin.qq.com/s/iTAQMoFDtbcORUvdm0vZAA
  * @author konghang
  */
 @RunWith(SpringJUnit4ClassRunner.class)
