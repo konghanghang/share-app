@@ -11,6 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.annotation.Resource;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,9 +23,12 @@ public class UserControllerTest {
 
     private MockMvc mvc;
 
+    @Resource
+    UserController userController;
+
     @Before
     public void setUp() {
-        mvc = MockMvcBuilders.standaloneSetup(new UserController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     /**

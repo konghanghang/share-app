@@ -136,10 +136,10 @@ app-web则还是一个正常的web应用.
     @Select({"select ref_user_id, username, nick_name,sex,email from t_user where ref_user_id = #{userId}"})
     JSONObject simpleInfo2(String userId);
     ```
-    这里用一个地方需要注意:***@Results的id所在的那个方法的返回类型一定要和@ResultMap注解方法的返回类型一致***.
+    这里用一个地方需要注意:**@Results的id所在的那个方法的返回类型一定要和@ResultMap注解方法的返回类型一致**.
 
 ### 遇到的问题以及解决办法
 1. [记一次踩坑:springboot2.0.2配置fastjson不生效](https://segmentfault.com/a/1190000015975405)
 
 ### 重要:已知问题
-1. 在app-web模块中的单元测试(项目正常启动则可以正常运行)无法正常运行,dubbo注解@service导致属性空指针,具体说明见我的提问:[springboot+dubbo在写单元测试的时候controller中的@Reference注解属性为null](https://segmentfault.com/q/1010000015989534)
+1. ~~(已解决)在app-web模块中的单元测试(项目正常启动则可以正常运行)无法正常运行,dubbo注解@service导致属性空指针,具体说明见我的提问:[springboot+dubbo在写单元测试的时候controller中的@Reference注解属性为null](https://segmentfault.com/q/1010000015989534)~~
