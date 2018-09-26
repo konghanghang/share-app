@@ -10,9 +10,14 @@
     <!-- 数据库驱动-->
     <context id="MysqlTables" targetRuntime="MyBatis3">
         <property name="autoDelimitKeywords" value="true"/>
+        <!-- 生成的 Java 文件的编码 -->
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
+        <!-- 格式化 Java 代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化 XML 代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
 
         <!-- 抑制警告 -->
         <property name="suppressTypeWarnings" value="true" />
@@ -27,14 +32,21 @@
         <!-- generate entity时,生成toString -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 
-        <commentGenerator>
-            <property name="suppressDate" value="true"/>
+        <commentGenerator type="com.ysla.api.utils.mybatis.MySqlCommentGenerator">
+            <!--<property name="suppressDate" value="true"/>-->
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="true"/>
+            <!--<property name="suppressAllComments" value="true"/>-->
+            <!-- 根据数据库字段注释生成java文件注释 -->
+            <!--<property name="addRemarkComments" value="true"/>-->
+            <property name="author" value="konghang"/>
+            <property name="dateFormat" value="yyyy/MM/dd"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/test?useSSL=false"
-                        userId="root" password="2222"/>
+                        userId="root" password="2222">
+            <!-- 设置 useInformationSchema 属性为 true -->
+            <property name="useInformationSchema" value="true" />
+        </jdbcConnection>
         <!-- java类型处理器
         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
         注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；-->
