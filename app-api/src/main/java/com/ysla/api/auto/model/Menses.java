@@ -2,21 +2,51 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class Menses implements Serializable {
+    /**
+     * 主键Id,自增
+     */
     private Integer mensesId;
 
+    /**
+     * 年
+     */
     private String year;
 
+    /**
+     * 月份
+     */
     private String month;
 
+    /**
+     * 微信openId
+     */
     private String openId;
 
+    /**
+     * 上一次月经时间
+     */
     private Long lastMensesTime;
 
+    /**
+     * 预测这一次的时间
+     */
     private Long mensesTime;
 
+    /**
+     * 这一次真正的月经时间
+     */
     private Long trueMensesTime;
 
+    /**
+     * 创建时间
+     */
     private Long createDate;
 
     private static final long serialVersionUID = 1L;

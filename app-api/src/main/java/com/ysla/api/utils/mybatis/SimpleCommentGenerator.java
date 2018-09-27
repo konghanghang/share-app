@@ -8,11 +8,13 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 
 import java.util.Properties;
 
+
 /**
  * @author konghang
  * https://segmentfault.com/a/1190000016525887
  */
 public class SimpleCommentGenerator implements CommentGenerator {
+
     @Override
     public void addConfigurationProperties(Properties properties) {
 
@@ -65,16 +67,16 @@ public class SimpleCommentGenerator implements CommentGenerator {
 
     @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
-
+        return;
     }
 
     @Override
     public void addComment(XmlElement xmlElement) {
-
+        return;
     }
 
     @Override
     public void addRootComment(XmlElement rootElement) {
-
+        return;
     }
 }

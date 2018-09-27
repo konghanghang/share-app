@@ -2,37 +2,91 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class Article implements Serializable {
+    /**
+     * 
+     */
     private Integer articleId;
 
+    /**
+     * 
+     */
     private String refArticleId;
 
+    /**
+     * 用户(作者)refUserId
+     */
     private String refUserId;
 
+    /**
+     * 文章标题
+     */
     private String title;
 
+    /**
+     * 文章简介
+     */
     private String description;
 
+    /**
+     * 文章内容
+     */
     private String content;
 
+    /**
+     * 封面图片,加上缩略图路径70个字段足够
+     */
     private String coverImage;
 
+    /**
+     * 浏览总数
+     */
     private Integer countView;
 
+    /**
+     * 评论总数
+     */
     private Integer countComment;
 
+    /**
+     * 收藏总数
+     */
     private Integer countCollection;
 
+    /**
+     * 文章分类
+     */
     private String type;
 
+    /**
+     * 文章状态,0:正常,1:删除
+     */
     private Byte status;
 
+    /**
+     * 创建ip
+     */
     private String createIp;
 
+    /**
+     * 创建时间
+     */
     private Long createDate;
 
+    /**
+     * 更新时间
+     */
     private Long updateDate;
 
+    /**
+     * md
+     */
     private String mdContent;
 
     private static final long serialVersionUID = 1L;

@@ -2,53 +2,131 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class WxMp implements Serializable {
+    /**
+     * MpID
+     */
     private Integer mpId;
 
+    /**
+     * 帐户
+     */
     private String account;
 
+    /**
+     * 用户帐号
+     */
     private String accountName;
 
+    /**
+     * 应用ID
+     */
     private String appId;
 
+    /**
+     * 应用密钥
+     */
     private String appSecret;
 
+    /**
+     * 服务器认证Token
+     */
     private String token;
 
+    /**
+     * 获取到的凭证
+     */
     private String accessToken;
 
+    /**
+     * 凭证有效时间，单位：秒
+     */
     private Long expiresIn;
 
+    /**
+     * JSSDK
+     */
     private String jsapiTicket;
 
+    /**
+     * JSSDK过期时间
+     */
     private Long jsapiTicketExpiresIn;
 
+    /**
+     * JS接口安全域名
+     */
     private String jsOauthUrl;
 
+    /**
+     * api_ticket，卡券接口中签名所需凭证
+     */
     private String apiTicket;
 
+    /**
+     * api_ticket过期时间
+     */
     private Long apiTicketExpiresIn;
 
+    /**
+     * 微信支付ID
+     */
     private String mchId;
 
+    /**
+     * 微信支付密钥
+     */
     private String wxPaySecret;
 
+    /**
+     * 
+     */
     private String wxPayNotifyUrl;
 
+    /**
+     * 微信支付证书路径
+     */
     private String wxPayCertPath;
 
+    /**
+     * WHO字段
+     */
     private Long createDate;
 
+    /**
+     * WHO字段
+     */
     private String createIp;
 
+    /**
+     * WHO字段
+     */
     private String createBy;
 
+    /**
+     * WHO字段
+     */
     private Long lastUpdateDate;
 
+    /**
+     * WHO字段
+     */
     private String lastUpdateBy;
 
+    /**
+     * 微信登陆网页应用的appId
+     */
     private String webAppId;
 
+    /**
+     * 微信登录网页应用的secret
+     */
     private String webAppSecret;
 
     private static final long serialVersionUID = 1L;

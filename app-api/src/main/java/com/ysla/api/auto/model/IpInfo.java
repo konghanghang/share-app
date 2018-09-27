@@ -2,35 +2,86 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class IpInfo implements Serializable {
+    /**
+     * IP地址
+     */
     private Long ip;
 
+    /**
+     * 地区ID
+     */
     private String areaId;
 
+    /**
+     * 地区
+     */
     private String area;
 
+    /**
+     * 国家编码
+     */
     private String countryId;
 
+    /**
+     * 国家名
+     */
     private String country;
 
+    /**
+     * 省编码
+     */
     private String regionId;
 
+    /**
+     * 省份
+     */
     private String region;
 
+    /**
+     * 城市ID
+     */
     private String cityId;
 
+    /**
+     * 城市名
+     */
     private String city;
 
+    /**
+     * 区(县)ID
+     */
     private String countyId;
 
+    /**
+     * 区(县)
+     */
     private String county;
 
+    /**
+     * 服务商
+     */
     private String ispId;
 
+    /**
+     * 服务商
+     */
     private String isp;
 
+    /**
+     * WHO字段
+     */
     private Long createDate;
 
+    /**
+     * WHO字段
+     */
     private Long lastUpdateDate;
 
     private static final long serialVersionUID = 1L;

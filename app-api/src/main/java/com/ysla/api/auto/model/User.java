@@ -2,27 +2,66 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class User implements Serializable {
+    /**
+     * 用户id
+     */
     private Integer userId;
 
+    /**
+     * refId
+     */
     private String refUserId;
 
+    /**
+     * 用户名
+     */
     private String username;
 
+    /**
+     * 用户昵称
+     */
     private String nickname;
 
+    /**
+     * 加密盐
+     */
     private String salt;
 
+    /**
+     * 用户密码
+     */
     private String password;
 
+    /**
+     * 性别
+     */
     private Byte sex;
 
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 
+     */
     private String headImage;
 
+    /**
+     * 创建ip
+     */
     private String createIp;
 
+    /**
+     * 创建时间
+     */
     private Long createDate;
 
     private static final long serialVersionUID = 1L;

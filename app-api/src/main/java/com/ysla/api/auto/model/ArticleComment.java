@@ -2,29 +2,71 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class ArticleComment implements Serializable {
+    /**
+     * 评论id
+     */
     private Integer commentId;
 
+    /**
+     * ref评论id
+     */
     private String refCommentId;
 
+    /**
+     * 赞
+     */
     private Integer approve;
 
+    /**
+     * 楼
+     */
     private Integer floor;
 
+    /**
+     * ref文章Id
+     */
     private String refArticleId;
 
+    /**
+     * 评论的用户id
+     */
     private String replayUser;
 
+    /**
+     * 被回复的用户
+     */
     private String replayTo;
 
+    /**
+     * 被回复评论Id,
+     */
     private String replayRefId;
 
+    /**
+     * 评论状态0:正常,1:删除
+     */
     private Byte status;
 
+    /**
+     * 创建ip
+     */
     private String createIp;
 
+    /**
+     * 评论创建时间
+     */
     private Long createDate;
 
+    /**
+     * 评论内容
+     */
     private String content;
 
     private static final long serialVersionUID = 1L;

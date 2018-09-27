@@ -2,11 +2,26 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class NoticeTemplate implements Serializable {
+    /**
+     * 
+     */
     private Integer noticeId;
 
+    /**
+     * 
+     */
     private String notice;
 
+    /**
+     * 
+     */
     private Long createDate;
 
     private static final long serialVersionUID = 1L;

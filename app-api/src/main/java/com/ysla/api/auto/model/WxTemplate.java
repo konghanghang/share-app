@@ -2,17 +2,41 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class WxTemplate implements Serializable {
+    /**
+     * 
+     */
     private Integer templateId;
 
+    /**
+     * 
+     */
     private String wxTemplateId;
 
+    /**
+     * 
+     */
     private String first;
 
+    /**
+     * 
+     */
     private String keyNote;
 
+    /**
+     * 
+     */
     private String remark;
 
+    /**
+     * 
+     */
     private Integer createDate;
 
     private static final long serialVersionUID = 1L;

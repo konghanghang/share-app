@@ -2,35 +2,86 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class WxUser implements Serializable {
+    /**
+     * 用户ID
+     */
     private Integer userId;
 
+    /**
+     * 当前微信AppId
+     */
     private String appId;
 
+    /**
+     * 用户的唯一标识
+     */
     private String openId;
 
+    /**
+     * 开放平台统一ID
+     */
     private String unionId;
 
+    /**
+     * 昵称
+     */
     private String nickname;
 
+    /**
+     * 用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+     */
     private Byte sex;
 
+    /**
+     * 用户个人资料填写的省份
+     */
     private String province;
 
+    /**
+     * 普通用户个人资料填写的城市
+     */
     private String city;
 
+    /**
+     * 国家，如中国为CN
+     */
     private String country;
 
+    /**
+     * 
+     */
     private String language;
 
+    /**
+     * 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。
+     */
     private String headImgUrl;
 
+    /**
+     * 
+     */
     private Byte subscribe;
 
+    /**
+     * 
+     */
     private Long subscribeTime;
 
+    /**
+     * WHO字段
+     */
     private Long createDate;
 
+    /**
+     * WHO字段
+     */
     private Long lastUpdateDate;
 
     private static final long serialVersionUID = 1L;

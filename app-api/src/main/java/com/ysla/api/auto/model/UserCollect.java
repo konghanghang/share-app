@@ -2,19 +2,46 @@ package com.ysla.api.auto.model;
 
 import java.io.Serializable;
 
+/**
+ * 
+ *
+ * @author konghang
+ * @date 2018/09/27
+ */
 public class UserCollect implements Serializable {
+    /**
+     * 收藏id
+     */
     private Integer collectId;
 
+    /**
+     * ref收藏id
+     */
     private String refCollectId;
 
+    /**
+     * 用户id
+     */
     private String userId;
 
+    /**
+     * 关联id,文章或者评论
+     */
     private String linkId;
 
+    /**
+     * 状态,0:正常1:删除
+     */
     private Byte status;
 
+    /**
+     * 类型1:文章收藏2:文章点赞
+     */
     private Byte type;
 
+    /**
+     * 创建时间
+     */
     private Long createDate;
 
     private static final long serialVersionUID = 1L;

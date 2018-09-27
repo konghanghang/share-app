@@ -3,6 +3,8 @@ package com.ysla.api.utils.mybatis;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 import java.text.SimpleDateFormat;
@@ -53,5 +55,4 @@ public class MySqlCommentGenerator extends SimpleCommentGenerator {
         field.addJavaDocLine(" * " + remarks);
         field.addJavaDocLine(" */");
     }
-
 }
