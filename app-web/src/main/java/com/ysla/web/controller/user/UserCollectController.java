@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "用户收藏api", description = "用户收藏api")
 @CrossOrigin
 @RestController
-@RequestMapping("/api/collect")
+@RequestMapping("/v1/collect")
 public class UserCollectController {
 
     @Reference(version = "${dubbo.service.version}",check = false, timeout = 10000)

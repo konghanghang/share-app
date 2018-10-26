@@ -8,6 +8,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
+/**
+ * 参考:https://www.cnblogs.com/jason123/p/7092008.html
+ * @author konghang
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 public class InvokeSetterAndGetter {
 

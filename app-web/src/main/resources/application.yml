@@ -32,6 +32,10 @@ com:
       contactUrl: ${com.ysla.swagger.termsOfServiceUrl}
       contactMail: kong.hh@live.com
       version: 1.0.0
+    qiniu:
+      ak: ENC(D/VuDxw4sYcJTnPwyqkP9C/AuT9CHO3/lKxVf5FGHGWtlaXOGl9UdujhKnCZZVGNxvpVWjs2QSw=)
+      sk: ENC(kDoLh2ZjFnfyaRIltwixmBzrh9SqfsbEA2ev5SuUVwc3Ymoc46TR5cGb3p5R5Jv5lnqY4gNRHRU=)
+      bucket: ENC(jqSA7eF9y3VoHbQ9edltnqb4knRsh1Js)
 
 # dubbo
 dubbo :

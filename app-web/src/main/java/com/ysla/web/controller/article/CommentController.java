@@ -31,7 +31,7 @@ import javax.validation.Valid;
 @CrossOrigin
 @Api(tags = "文章评论api", description = "文章评论api")
 @RestController
-@RequestMapping("/api/article/comment")
+@RequestMapping("/v1/article/comment")
 public class CommentController {
 
     @Reference(version = "${dubbo.service.version}", check = false, timeout = 10000)

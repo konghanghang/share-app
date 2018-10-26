@@ -29,7 +29,7 @@ import javax.validation.Valid;
 @CrossOrigin
 @Api(tags = "用户api", description = "用户api")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/v1/user")
 public class UserController {
 
     @Reference(version = "${dubbo.service.version}",check = false, timeout = 10000)
@@ -82,7 +82,7 @@ public class UserController {
 
     @ApiOperation(value="用户信息", notes="获取用户信息")
     @ApiImplicitParam(name = "Authorization", value = "Authorization", required = true, type = "String")
-    @GetMapping(value = "", produces="application/json;charset=UTF-8")
+    @GetMapping(value = "/info", produces="application/json;charset=UTF-8")
     public JsonApi userInfo(@RequestHeader(name = "Authorization") String token){
         String username = JwtUtil.getUsername(token);
         User user = new User();

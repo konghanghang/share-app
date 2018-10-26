@@ -35,7 +35,7 @@ import java.util.List;
 @CrossOrigin
 @Api(tags = "文章api", description = "文章api")
 @RestController
-@RequestMapping("/api/article")
+@RequestMapping("/v1/article")
 public class ArticleController {
 
     @Reference(version = "${dubbo.service.version}", check = false, timeout = 10000)
@@ -121,7 +121,7 @@ public class ArticleController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", dataType = "Integer")
     })
     @GetMapping(value = "", produces="application/json;charset=UTF-8")
-    public JsonApi articles(@RequestParam(value = "pageNo") int pageNo,
+    public JsonApi articles(@RequestParam(value = "pageNo",required = false, defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize",required = false, defaultValue = "10") int pageSize){
         PageModel pageModel = new PageModel(pageNo,pageSize);
         pageModel = articleService.articles(null,pageModel);
