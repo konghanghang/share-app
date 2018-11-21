@@ -74,6 +74,7 @@ public class ShiroConfig {
                 .setSessionStorageEnabled(false);*/
         DefaultSubjectDAO subjectDAO = (DefaultSubjectDAO)securityManager.getSubjectDAO();
         DefaultSessionStorageEvaluator evaluator = (DefaultSessionStorageEvaluator) subjectDAO.getSessionStorageEvaluator();
+        evaluator.setSessionStorageEnabled(false);
         StatelessDefaultSubjectFactory subjectFactory = new StatelessDefaultSubjectFactory(evaluator);
         securityManager.setSubjectFactory(subjectFactory);
         return securityManager;
