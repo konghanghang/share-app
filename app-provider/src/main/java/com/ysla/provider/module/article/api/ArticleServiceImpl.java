@@ -40,8 +40,8 @@ public class ArticleServiceImpl implements IArticleService {
      * @return
      */
     @Override
-    public JSONObject getArticleByRef(String articleId, String username) {
-        JSONObject json = articleDao.getArticleByRef(articleId);
+    public JSONObject getArticleById(String articleId, String username) {
+        JSONObject json = articleDao.getArticleById(articleId);
         json.put("isCollect",false);
         /*if(username != null){
             int count = collectDao.selectByLinkIdAndUser(username,json.getString("refArticleId"));
@@ -75,13 +75,13 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     /**
-     * 根据refArticleId更新文章
+     * 根据articleId更新文章
      * @param article
      * @return
      */
     @Override
-    public int updateByRefSelective(Article article) {
-        return articleDao.updateByRefSelective(article);
+    public int updateByIdSelective(Article article) {
+        return articleDao.updateByIdSelective(article);
     }
 
     /**

@@ -25,7 +25,7 @@ public interface IArticleService {
      * @param username  用于判断登录用户是否收藏了文章
      * @return
      */
-    JSONObject getArticleByRef(String articleId, String username);
+    JSONObject getArticleById(String articleId, String username);
 
     /**
      * 获取所有文章,username不为空则获取某人的所有文章
@@ -43,11 +43,11 @@ public interface IArticleService {
     int update(Article article);
 
     /**
-     * 根据refArticleId更新文章
+     * 根据articleId更新文章
      * @param article
      * @return
      */
-    int updateByRefSelective(Article article);
+    int updateByIdSelective(Article article);
 
     /**
      * 精选文章

@@ -77,7 +77,7 @@ public class ArticleController {
     @GetMapping(value = "/{articleId}", produces="application/json;charset=UTF-8")
     public JsonApi get(@PathVariable String articleId,
                        @RequestHeader(name = "Authorization", required = false) String token){
-        JSONObject json = articleService.getArticleByRef(articleId,JwtUtil.getUsername(token));
+        JSONObject json = articleService.getArticleById(articleId,JwtUtil.getUsername(token));
         return JsonApi.isOk().data(json);
     }
 
@@ -93,7 +93,7 @@ public class ArticleController {
         BeanUtils.copyProperties(articleVO,article);
         article.setRefArticleId(articleVO.getArticleId());
         article.setUpdateDate(DateUtils.getUnixStamp());
-        int result = articleService.updateByRefSelective(article);
+        int result = articleService.updateByIdSelective(article);
         if(result < 1){
             throw new TxException(ErrorCode.ARTICLE_ID_ERROR);
         }
@@ -108,7 +108,7 @@ public class ArticleController {
         Article article = new Article();
         article.setStatus((byte)1);
         article.setRefArticleId(articleId);
-        int result = articleService.updateByRefSelective(article);
+        int result = articleService.updateByIdSelective(article);
         if(result < 1){
             throw new BaseException(ErrorCode.ARTICLE_ID_ERROR);
         }
@@ -121,10 +121,11 @@ public class ArticleController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", dataType = "Integer")
     })
     @GetMapping(value = "", produces="application/json;charset=UTF-8")
-    public JsonApi articles(@RequestParam(value = "pageNo",required = false, defaultValue = "1") int pageNo,
+    public JsonApi articles(@RequestParam(value = "username",required = false, defaultValue = "") String username,
+                            @RequestParam(value = "pageNo",required = false, defaultValue = "1") int pageNo,
                             @RequestParam(value = "pageSize",required = false, defaultValue = "10") int pageSize){
         PageModel pageModel = new PageModel(pageNo,pageSize);
-        pageModel = articleService.articles(null,pageModel);
+        pageModel = articleService.articles(username,pageModel);
         return JsonApi.isOk().data(pageModel);
     }
 

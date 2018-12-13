@@ -17,7 +17,7 @@ public class ArticleProvider {
      */
     public String getArticles(String username){
         SQL sql = new SQL();
-        sql.SELECT("a.article_id","a.ref_article_id","u.nickname author","a.title","a.count_view","a.count_comment");
+        sql.SELECT("a.id","a.article_id","u.nickname author","a.title","a.count_view","a.count_comment");
         sql.SELECT("a.count_collection","a.type","a.create_date","a.cover_image","a.description");
         sql.FROM("t_article a");
         sql.LEFT_OUTER_JOIN("t_user u");
@@ -29,13 +29,13 @@ public class ArticleProvider {
      * @param record
      * @return
      */
-    public String updateByArticleRefSelective(Article record){
+    public String updateByArticleIdSelective(Article record){
         SQL sql = new SQL();
 
         sql.UPDATE("t_article");
 
         if (record.getRefUserId() != null) {
-            sql.SET("ref_user_id = #{refUserId,jdbcType=VARCHAR}");
+            sql.SET("user_id = #{userId,jdbcType=VARCHAR}");
         }
         if (record.getTitle() != null) {
             sql.SET("title = #{title,jdbcType=VARCHAR}");
@@ -76,7 +76,7 @@ public class ArticleProvider {
         if (record.getMdContent() != null) {
             sql.SET("md_content = #{mdContent,jdbcType=LONGVARCHAR}");
         }
-        sql.WHERE("ref_article_id = #{refArticleId}");
+        sql.WHERE("article_id = #{articleId}");
         return sql.toString();
     }
 
@@ -96,7 +96,7 @@ public class ArticleProvider {
             sql.SET("`floor` = #{floor,jdbcType=INTEGER}");
         }
         if (record.getRefArticleId() != null) {
-            sql.SET("ref_article_id = #{refArticleId,jdbcType=VARCHAR}");
+            sql.SET("article_id = #{articleId,jdbcType=VARCHAR}");
         }
         if (record.getReplayUser() != null) {
             sql.SET("replay_user = #{replayUser,jdbcType=VARCHAR}");
@@ -105,7 +105,7 @@ public class ArticleProvider {
             sql.SET("replay_to = #{replayTo,jdbcType=VARCHAR}");
         }
         if (record.getReplayRefId() != null) {
-            sql.SET("replay_ref_d = #{replayRefD,jdbcType=VARCHAR}");
+            sql.SET("replay_ref_id = #{replayRefD,jdbcType=VARCHAR}");
         }
         if (record.getStatus() != null) {
             sql.SET("`status` = #{status,jdbcType=TINYINT}");
@@ -141,7 +141,7 @@ public class ArticleProvider {
         if (record.getCountCollection() != null) {
             sql.SET("count_collection = count_collection + #{countCollection}");
         }
-        sql.WHERE("ref_article_id = #{refArticleId}");
+        sql.WHERE("article_id = #{articleId}");
         return sql.toString();
     }
 
